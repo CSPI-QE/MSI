@@ -1,3 +1,5 @@
+Template for a new GitHub python repository: [python-template-repository](https://github.com/myakove/python-template-repository)
+
 | Name  | Container | Release | Tags |
 |---|---|---|---|
 | [cloud-tools](https://github.com/RedHatQE/cloud-tools) | :x: | :heavy_check_mark: | `main`  | 

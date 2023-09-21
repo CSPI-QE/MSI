@@ -6,7 +6,7 @@ Template for a new GitHub python repository: [python-template-repository](https:
 | [rosa-python-client](https://github.com/RedHatQE/rosa-python-client) | :x: | :heavy_check_mark: | `main`  |  
 | [managed-services-integration-tests](https://github.com/RedHatQE/managed-services-integration-tests) | :heavy_check_mark: | :x: | `main`  | 
 | [openshift-python-utilities](https://github.com/RedHatQE/openshift-python-utilities) | :x: | :heavy_check_mark: | `main` | 
-| [openshift-python-wrapper](https://github.com/RedHatQE/openshift-python-wrapper) | :x: | :heavy_check_mark: | `v4.14`  `v4.13` `v4.12` `v4.11` `v4.10` `v4.9`  `v4.8`  | 
+| [openshift-python-wrapper](https://github.com/RedHatQE/openshift-python-wrapper) | :x: | :heavy_check_mark: | `v4.15` `v4.14`  `v4.13` `v4.12` `v4.11` `v4.10` `v4.9`  `v4.8`  | 
 | [openshift-ci-trigger](https://github.com/RedHatQE/openshift-ci-trigger) | :heavy_check_mark: | :x: | `main`  | 
 | [ocp-addons-operators-cli](https://github.com/RedHatQE/ocp-addons-operators-cli) | :heavy_check_mark: | :x: | `main`  | 
 | [vault-cli](https://github.com/RedHatQE/vault-cli) | :x: | :x: | `main`  | 

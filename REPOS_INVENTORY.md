@@ -13,7 +13,7 @@ Template for a new GitHub python repository: [python-template-repository](https:
 | [python-simple-logger](https://github.com/RedHatQE/python-simple-logger) | :x: | :heavy_check_mark: | `main`  |  
 | [openshift-cluster-management-python-wrapper](https://github.com/RedHatQE/openshift-cluster-management-python-wrapper) | :x: | :heavy_check_mark: | `main`  | 
 | [openshift-cluster-management-python-client](https://github.com/RedHatQE/openshift-cluster-management-python-client) | :x: | :heavy_check_mark: | `main`  | 
-| [flake8-plugins](https://github.com/RedHatQE/flake8-plugins) | :x: | :x: | `main`  | 
+| [flake8-plugins](https://github.com/RedHatQE/flake8-plugins) | :x: | :heavy_check_mark: | `main`  | 
 | [openshift-python-wrapper-data-collector](https://github.com/RedHatQE/openshift-python-wrapper-data-collector) | :x: | :heavy_check_mark: | `main`  | 
 | [fedora-zsh](https://github.com/RedHatQE/fedora-zsh) | :x: | :x: | `main`  | 
 | [openshift-resources-definitions](https://github.com/RedHatQE/openshift-resources-definitions) | :x: | :x: | `main`  | 

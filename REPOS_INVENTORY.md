@@ -18,3 +18,5 @@ Template for a new GitHub python repository: [python-template-repository](https:
 | [fedora-zsh](https://github.com/RedHatQE/fedora-zsh) | :x: | :x: | `main`  | 
 | [openshift-resources-definitions](https://github.com/RedHatQE/openshift-resources-definitions) | :x: | :x: | `main`  | 
 | [openshift-cli-installer](https://github.com/RedHatQE/openshift-cli-installer) | :heavy_check_mark: | :heavy_check_mark: | `main`  | 
+| [timeout-sampler](https://github.com/RedHatQE/timeout-sampler) | :x: | :heavy_check_mark: | `main`  | 
+

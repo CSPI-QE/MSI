@@ -1,4 +1,4 @@
-Template for a new GitHub python repository: [python-template-repository](https://github.com/myakove/python-template-repository)
+Template for a new GitHub python repository: [python-template-repository](https://github.com/RedHatQE/python-template-repository)
 
 | Name  | Container | Release | Tags |
 |---|---|---|---|

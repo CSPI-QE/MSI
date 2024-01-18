@@ -20,5 +20,5 @@ Template for a new GitHub python repository: [python-template-repository](https:
 | [openshift-cli-installer](https://github.com/RedHatQE/openshift-cli-installer) | :heavy_check_mark: | :heavy_check_mark: | `main`  | 
 | [timeout-sampler](https://github.com/RedHatQE/timeout-sampler) | :x: | :heavy_check_mark: | `main`  | 
 | [firewatch](https://github.com/RedHatQE/firewatch) | :x: | :x: | `main`  | 
-| [qe-matrix](https://github.com/RedHatQE/qe-matrix) | :x: | :x: | `main`  | 
+| [qe-metrics](https://github.com/RedHatQE/qe-metrics) | :x: | :x: | `main`  | 
 

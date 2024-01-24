@@ -16,7 +16,6 @@ Template for a new GitHub python repository: [python-template-repository](https:
 | [flake8-plugins](https://github.com/RedHatQE/flake8-plugins) | :x: | :heavy_check_mark: | `main`  | 
 | [openshift-python-wrapper-data-collector](https://github.com/RedHatQE/openshift-python-wrapper-data-collector) | :x: | :heavy_check_mark: | `main`  | 
 | [fedora-zsh](https://github.com/RedHatQE/fedora-zsh) | :x: | :x: | `main`  | 
-| [openshift-resources-definitions](https://github.com/RedHatQE/openshift-resources-definitions) | :x: | :x: | `main`  | 
 | [openshift-cli-installer](https://github.com/RedHatQE/openshift-cli-installer) | :heavy_check_mark: | :heavy_check_mark: | `main`  | 
 | [timeout-sampler](https://github.com/RedHatQE/timeout-sampler) | :x: | :heavy_check_mark: | `main`  | 
 | [firewatch](https://github.com/RedHatQE/firewatch) | :x: | :x: | `main`  | 

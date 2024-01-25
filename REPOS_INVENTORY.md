@@ -20,4 +20,6 @@ Template for a new GitHub python repository: [python-template-repository](https:
 | [timeout-sampler](https://github.com/RedHatQE/timeout-sampler) | :x: | :heavy_check_mark: | `main`  | 
 | [firewatch](https://github.com/RedHatQE/firewatch) | :x: | :x: | `main`  | 
 | [qe-metrics](https://github.com/RedHatQE/qe-metrics) | :x: | :x: | `main`  | 
+| [qe-tools-base-image](https://github.com/RedHatQE/qe-tools-base-image) | :heavy_check_mark: | :x: | `main`  | 
+
 

@@ -28,7 +28,9 @@ def get_repositories():
 
 def main():
     repositories_mapping = {}
-    config_file = os.path.join(os.path.expanduser("~"), ".config","release-it-check", "config.yaml")
+    config_file = os.path.join(
+        os.path.expanduser("~"), ".config", "release-it-check", "config.yaml"
+    )
     if os.path.isfile(config_file):
         with open(config_file) as fd:
             repositories_mapping = yaml.safe_load(fd.read())

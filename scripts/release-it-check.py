@@ -16,7 +16,7 @@ def get_repositories():
     for line in repos.decode("utf-8").splitlines():
         if re.findall(r"\[.*]\(.*\)", line):
             repo_data = [section.strip() for section in line.split("|") if section]
-            if len(repo_data) < 5:
+            if len(repo_data) < 4:
                 continue
 
             if repo_data[2] == ":heavy_check_mark:":

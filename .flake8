@@ -1,0 +1,20 @@
+[flake8]
+select=FCN,M511
+
+exclude =
+    doc,
+    .tox,
+    .git,
+    .yml,
+    Pipfile.*,
+    docs/*,
+    .cache/*
+
+fcn_exclude_functions =
+    re,
+    yaml,
+    os,
+    subprocess,
+
+enable-extensions =
+    FCN,

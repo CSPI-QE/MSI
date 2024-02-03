@@ -4,6 +4,8 @@ import os
 import re
 import subprocess
 import shlex
+
+import click
 import requests
 import yaml
 
@@ -26,7 +28,15 @@ def get_repositories():
     return repositories
 
 
-def main():
+@click.command("installer")
+@click.option(
+    "-y",
+    "--yes",
+    is_flag=True,
+    show_default=True,
+    help="Answer yes to all prompts",
+)
+def main(yes):
     repositories_mapping = {}
     config_file = os.path.join(
         os.path.expanduser("~"), ".config", "release-it-check", "config.yaml"
@@ -87,10 +97,13 @@ def main():
                 shlex.split("release-it --release-version"), stdout=subprocess.PIPE
             )
             print(f"\n[{repo_name}]\n{out}\n")
-            user_input = input(
-                f"Do you want to make a new release "
-                f"[{next_release.stdout.decode('utf-8').strip()}] for {repo_name} on branch {branch}? [y/n]"
-            )
+            if yes:
+                user_input = "y"
+            else:
+                user_input = input(
+                    f"Do you want to make a new release "
+                    f"[{next_release.stdout.decode('utf-8').strip()}] for {repo_name} on branch {branch}? [y/n]"
+                )
             if user_input.lower() == "y":
                 os.chdir(os.path.join(git_base_dir, repo_name))
                 try:

@@ -18,4 +18,5 @@ cloud-tools: cloud-tools-upstream
 run `pip install -r scripts/requirements.txt`
 create link to `scripts/release-it-check.py` somewhere in your PATH
 
-run `release-it check.py` to execute the script
+run `release-it-check.py` to execute the script
+Check `release-it-check.py --help` for more info

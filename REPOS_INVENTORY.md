@@ -22,4 +22,6 @@ Template for a new GitHub python repository: [python-template-repository](https:
 | [qe-metrics](https://github.com/RedHatQE/qe-metrics) | :x: | :x: | `main`  |
 | [qe-tools-base-image](https://github.com/RedHatQE/qe-tools-base-image) | :heavy_check_mark: | :x: | `main`  |
 | [openshift-ci-job-trigger](https://github.com/RedHatQE/openshift-ci-job-trigger) | :heavy_check_mark: | :x: | `main`  |
+| [openshift-ci-zstream-trigger](https://github.com/RedHatQE/openshift-ci-zstream-trigger) | :heavy_check_mark: | :x: | `main`  |
+
 

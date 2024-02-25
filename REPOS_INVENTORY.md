@@ -23,5 +23,3 @@ Template for a new GitHub python repository: [python-template-repository](https:
 | [qe-tools-base-image](https://github.com/RedHatQE/qe-tools-base-image) | :heavy_check_mark: | :x: | `main`  |
 | [openshift-ci-job-trigger](https://github.com/RedHatQE/openshift-ci-job-trigger) | :heavy_check_mark: | :x: | `main`  |
 | [ci-jobs-trigger](https://github.com/RedHatQE/ci-jobs-trigger) | :heavy_check_mark: | :x: | `main`  |
-
-

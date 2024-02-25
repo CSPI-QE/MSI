@@ -1,8 +1,45 @@
-# Check and release to Pypi using [release-it](https://github.com/release-it/release-it)
+# Scripts
 
-Check repositories from [REPOS_INVENTORY](../REPOS_INVENTORY.md)
+## Requirements
+- [poetry](https://python-poetry.org/)
+- [pipx](https://github.com/pypa/pipx)
 
-## Usage
+## Installation
+
+With poetry
+```bash
+poetry install
+```
+
+Globally
+
+```bash
+git clone https://github.com/CSPI-QE/MSI.git
+cd MSI
+pipx install .
+```
+
+### Update
+
+```bash
+git remote update
+```
+
+With poetry
+```bash
+poetry install
+```
+
+With pipx
+```bash
+pipx install -f .
+```
+
+## release-it-repos
+
+Check and release to Pypi using [release-it](https://github.com/release-it/release-it) for all repositories under [REPOS_INVENTORY](../REPOS_INVENTORY.md)
+
+### Usage
 set os environment to base git repositories path
 
 ```bash
@@ -14,9 +51,16 @@ If local repository folder is different from the repository name override them i
 cloud-tools: cloud-tools-upstream
 ```
 
-## Installation
-run `pip install -r scripts/requirements.txt`
-create link to `scripts/release-it-check.py` somewhere in your PATH
+### Usage
+run `poetry run release-it-repos` to execute the script
+Check `poetry run release-it-repos --help` for more info
 
-run `release-it-check.py` to execute the script
-Check `release-it-check.py --help` for more info
+
+## poetry-update-repo
+
+Update local repository dependencies
+Must be run from the root of the repository
+
+```bash
+poetry run poetry-update-repo
+```

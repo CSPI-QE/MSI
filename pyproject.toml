@@ -1,0 +1,32 @@
+[tool.ruff]
+preview = true
+line-length = 120
+fix = true
+output-format = "grouped"
+
+[tool.ruff.format]
+exclude = [".git", ".venv", ".mypy_cache", ".tox", "__pycache__"]
+
+[tool.poetry]
+name = "msi"
+version = "0.1.0"
+description = "General scripts"
+authors = ["Meni Yakove <myakove@gmail.com>"]
+license = "Apache-2.0"
+readme = "README.md"
+packages = [{ include = "scripts" }]
+
+[tool.poetry.scripts]
+release-it-repos = "scripts.release_it_repos:main"
+poetry-update-repo = "scripts.poetry_update_repo:main"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+pyyaml = "^6.0.1"
+requests = "^2.31.0"
+click = "^8.1.7"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

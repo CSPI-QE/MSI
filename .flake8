@@ -9,12 +9,3 @@ exclude =
     Pipfile.*,
     docs/*,
     .cache/*
-
-fcn_exclude_functions =
-    re,
-    yaml,
-    os,
-    subprocess,
-
-enable-extensions =
-    FCN,

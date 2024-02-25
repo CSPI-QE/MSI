@@ -11,9 +11,7 @@ import yaml
 
 def get_repositories():
     repositories = {}
-    repos = requests.get(
-        "https://raw.githubusercontent.com/CSPI-QE/MSI/main/REPOS_INVENTORY.md"
-    ).content
+    repos = requests.get("https://raw.githubusercontent.com/CSPI-QE/MSI/main/REPOS_INVENTORY.md").content
     for line in repos.decode("utf-8").splitlines():
         if re.findall(r"\[.*]\(.*\)", line):
             repo_data = [section.strip() for section in line.split("|") if section]
@@ -37,9 +35,7 @@ def get_repositories():
 )
 def main(yes):
     repositories_mapping = {}
-    config_file = os.path.join(
-        os.path.expanduser("~"), ".config", "release-it-check", "config.yaml"
-    )
+    config_file = os.path.join(os.path.expanduser("~"), ".config", "release-it-check", "config.yaml")
     if os.path.isfile(config_file):
         with open(config_file) as fd:
             repositories_mapping = yaml.safe_load(fd.read())
@@ -54,9 +50,7 @@ def main(yes):
         repo_name = repositories_mapping.get(repo_name, repo_name)
         repo_path = os.path.join(git_base_dir, repo_name)
         os.chdir(repo_path)
-        current_branch = subprocess.run(
-            shlex.split("git branch --show-current"), stdout=subprocess.PIPE
-        )
+        current_branch = subprocess.run(shlex.split("git branch --show-current"), stdout=subprocess.PIPE)
         for branch in branches:
             print(f"\nWorking on {repo_name} branch {branch} ...")
             try:
@@ -72,9 +66,7 @@ def main(yes):
                 )
             except Exception:
                 subprocess.run(
-                    shlex.split(
-                        f"git checkout {current_branch.stdout.decode('utf-8').strip()}"
-                    ),
+                    shlex.split(f"git checkout {current_branch.stdout.decode('utf-8').strip()}"),
                     stdout=subprocess.PIPE,
                     stderr=subprocess.PIPE,
                 )
@@ -87,14 +79,10 @@ def main(yes):
             )
             out = res.stdout.decode("utf-8")
             if "undefined" in out or not out:
-                os.system(
-                    f"git checkout {current_branch.stdout.decode('utf-8').strip()}"
-                )
+                os.system(f"git checkout {current_branch.stdout.decode('utf-8').strip()}")
                 continue
 
-            next_release = subprocess.run(
-                shlex.split("release-it --release-version"), stdout=subprocess.PIPE
-            )
+            next_release = subprocess.run(shlex.split("release-it --release-version"), stdout=subprocess.PIPE)
             print(f"\n[{repo_name}]\n{out}\n")
             if yes:
                 user_input = "y"
@@ -114,9 +102,7 @@ def main(yes):
                 continue
 
         subprocess.run(
-            shlex.split(
-                f"git checkout {current_branch.stdout.decode('utf-8').strip()}"
-            ),
+            shlex.split(f"git checkout {current_branch.stdout.decode('utf-8').strip()}"),
             stdout=subprocess.PIPE,
             stderr=subprocess.PIPE,
         )

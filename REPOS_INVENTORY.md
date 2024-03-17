@@ -22,4 +22,4 @@ Template for a new GitHub python repository: [python-template-repository](https:
 | [qe-metrics](https://github.com/RedHatQE/qe-metrics) | :x: | :x: | `main`  |
 | [qe-tools-base-image](https://github.com/RedHatQE/qe-tools-base-image) | :heavy_check_mark: | :x: | `main`  |
 | [ci-jobs-trigger](https://github.com/RedHatQE/ci-jobs-trigger) | :heavy_check_mark: | :x: | `main`  |
-| [python-utility-scripts](https://github.com/RedHatQE/python-utility-scripts)) | :x: | :heavy_check_mark: | `main`  |
+| [python-utility-scripts](https://github.com/RedHatQE/python-utility-scripts) | :x: | :heavy_check_mark: | `main`  |

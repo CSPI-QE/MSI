@@ -2,7 +2,7 @@ Template for a new GitHub python repository: [python-template-repository](https:
 
 | Name  | Container | Release | Tags |
 |---|---|---|---|
-| [cloud-tools](https://github.com/RedHatQE/cloud-tools) | :x: | :heavy_check_mark: | `main`  |
+| [cloud-tools](https://github.com/RedHatQE/cloud-tools) | :x: | [:heavy_check_mark:](https://pypi.org/project/redhat-qe-cloud-tools/) | `main`  |
 | [rosa-python-client](https://github.com/RedHatQE/rosa-python-client) | :x: | :heavy_check_mark: | `main`  |  
 | [managed-services-integration-tests](https://github.com/RedHatQE/managed-services-integration-tests) | :heavy_check_mark: | :x: | `main`  |
 | [openshift-python-utilities](https://github.com/RedHatQE/openshift-python-utilities) | :x: | :heavy_check_mark: | `main` |

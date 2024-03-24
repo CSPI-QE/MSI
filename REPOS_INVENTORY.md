@@ -8,7 +8,7 @@ Template for a new GitHub python repository: [python-template-repository](https:
 | [openshift-python-utilities](https://github.com/RedHatQE/openshift-python-utilities) | :x: | [:heavy_check_mark:](https://pypi.org/project/openshift-python-utilities/) | `main` |
 | [openshift-python-wrapper](https://github.com/RedHatQE/openshift-python-wrapper) | :x: | [:heavy_check_mark:](https://pypi.org/project/openshift-python-wrapper/) | `main` `v4.15` `v4.14` |
 | [openshift-ci-trigger](https://github.com/RedHatQE/openshift-ci-trigger) | [:heavy_check_mark:](https://quay.io/repository/redhat_msi/openshift-ci-trigger) | :x: | `main`  |
-| [ocp-addons-operators-cli](https://github.com/RedHatQE/ocp-addons-operators-cli) | [:heavy_check_mark:](https://quay.io/repository/redhat_msi/ocp-addons-operators-cli) | :heavy_check_mark: | `main`  |
+| [ocp-addons-operators-cli](https://github.com/RedHatQE/ocp-addons-operators-cli) | [:heavy_check_mark:](https://quay.io/repository/redhat_msi/ocp-addons-operators-cli) | :x: | `main`  |
 | [vaultrun](https://github.com/RedHatQE/vaultrun) | :x: | [:heavy_check_mark:](https://pypi.org/project/vaultrun/) | `main`  |
 | [python-simple-logger](https://github.com/RedHatQE/python-simple-logger) | :x: | [:heavy_check_mark:](https://pypi.org/project/python-simple-logger/) | `main`  |  
 | [openshift-cluster-management-python-wrapper](https://github.com/RedHatQE/openshift-cluster-management-python-wrapper) | :x: | [:heavy_check_mark:](https://pypi.org/project/openshift-cluster-management-python-wrapper/) | `main`  |

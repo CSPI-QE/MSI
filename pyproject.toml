@@ -21,7 +21,7 @@ release-it-repos = "scripts.release_it_repos:main"
 poetry-update-repo = "scripts.poetry_update_repo:main"
 
 [tool.poetry.dependencies]
-python = "^3.12"
+python = "^3.11"
 pyyaml = "^6.0.1"
 requests = "^2.31.0"
 click = "^8.1.7"

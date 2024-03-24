@@ -1,4 +1,4 @@
-style>
+<style>
 a {
     text-decoration: none; /* This will remove the underline from all links */
 }

@@ -18,7 +18,7 @@ def get_repositories():
             if len(repo_data) < 4:
                 continue
 
-            if repo_data[2] == ":heavy_check_mark:":
+            if ":heavy_check_mark:" in repo_data[2]:
                 repo_name = re.findall(r"\[.*]", repo_data[0])[0].strip("[").rstrip("]")
                 repositories[repo_name] = [br.strip("`") for br in repo_data[3].split()]
 

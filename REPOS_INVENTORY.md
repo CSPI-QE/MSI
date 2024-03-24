@@ -1,9 +1,3 @@
-<style>
-a {
-    text-decoration: none; /* This will remove the underline from all links */
-}
-</style>
-
 Template for a new GitHub python repository: [python-template-repository](https://github.com/RedHatQE/python-template-repository)
 
 | Name  | Container | Release | Tags |

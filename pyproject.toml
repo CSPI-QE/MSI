@@ -20,6 +20,7 @@ packages = [{ include = "scripts" }]
 release-it-repos = "scripts.release_it_repos:main"
 poetry-update-repo = "scripts.poetry_tools:update_all_deps"
 poetry-get-deps = "scripts.poetry_tools:get_all_deps"
+poetry-generate-renovate = "scripts.poetry_tools:generate_renovate_json"
 
 [tool.poetry.dependencies]
 python = "^3.11"

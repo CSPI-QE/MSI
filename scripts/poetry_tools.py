@@ -4,9 +4,13 @@ import os
 import tomllib
 import subprocess
 import shlex
+import json
 
 
 def get_all_deps():
+    """
+    Returns all dependencies in pyproject.toml
+    """
     all_deps = []
     if os.path.isfile("pyproject.toml"):
         with open("pyproject.toml", "rb") as fd:
@@ -38,9 +42,25 @@ def get_all_deps():
 
 
 def update_all_deps():
+    """
+    Updates all dependencies in pyproject.toml
+    """
     for dep in get_all_deps():
         print(f"Updating {dep}")
         subprocess.run(shlex.split(f"poetry update {dep}"))
+
+
+def generate_renovate_json():
+    """
+    Generates renovate.json for renovatebot, add all poetry dependencies to matchPackagePatterns
+    in order to force renovate to update all dependencies in one PR.
+    """
+    _json = {
+        "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+        "packageRules": [{"matchPackagePatterns": get_all_deps(), "groupName": "poetry-deps"}],
+    }
+    with open("renovate.json", "w") as fd:
+        fd.write(json.dumps(_json))
 
 
 if __name__ == "__main__":

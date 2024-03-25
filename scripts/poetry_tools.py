@@ -24,12 +24,12 @@ def get_all_deps():
 
             all_deps.append(dep)
 
-            for _, deps in group_deps.items():
-                for dep in deps:
-                    if dep == "python":
-                        continue
+        for _, deps in group_deps.items():
+            for dep in deps.get("dependencies"):
+                if dep == "python":
+                    continue
 
-                    all_deps.append(dep)
+                all_deps.append(dep)
 
     else:
         print("Skipping because it does not have a pyproject.toml")

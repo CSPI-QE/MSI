@@ -7,8 +7,8 @@ Template for a new GitHub python repository: [python-template-repository](https:
 | [managed-services-integration-tests](https://github.com/RedHatQE/managed-services-integration-tests) | [:heavy_check_mark:](https://quay.io/repository/redhat_msi/managed-services-integration-tests) | :x: | `main`  |
 | [openshift-python-utilities](https://github.com/RedHatQE/openshift-python-utilities) | :x: | [:heavy_check_mark:](https://pypi.org/project/openshift-python-utilities/) | `main` |
 | [openshift-python-wrapper](https://github.com/RedHatQE/openshift-python-wrapper) | :x: | [:heavy_check_mark:](https://pypi.org/project/openshift-python-wrapper/) | `main` `v4.15` `v4.14` |
-| [openshift-ci-trigger](https://github.com/RedHatQE/openshift-ci-trigger) | [:heavy_check_mark:](https://quay.io/repository/redhat_msi/openshift-ci-trigger) | :x: | `main`  |
-| [ocp-addons-operators-cli](https://github.com/RedHatQE/ocp-addons-operators-cli) | [:heavy_check_mark:](https://quay.io/repository/redhat_msi/ocp-addons-operators-cli) | :x: | `main`  |
+| [openshift-ci-trigger](https://github.com/RedHatQE/openshift-ci-trigger) | [:heavy_check_mark:](https://quay.io/repository/redhat_msi/openshift-ci-trigger) | [:heavy_check_mark:](https://github.com/RedHatQE/openshift-ci-trigger/releases) | `main`  |
+| [ocp-addons-operators-cli](https://github.com/RedHatQE/ocp-addons-operators-cli) | [:heavy_check_mark:](https://quay.io/repository/redhat_msi/ocp-addons-operators-cli) | [:heavy_check_mark:](https://github.com/RedHatQE/ocp-addons-operators-cli/releases) | `main`  |
 | [vaultrun](https://github.com/RedHatQE/vaultrun) | :x: | [:heavy_check_mark:](https://pypi.org/project/vaultrun/) | `main`  |
 | [python-simple-logger](https://github.com/RedHatQE/python-simple-logger) | :x: | [:heavy_check_mark:](https://pypi.org/project/python-simple-logger/) | `main`  |  
 | [openshift-cluster-management-python-wrapper](https://github.com/RedHatQE/openshift-cluster-management-python-wrapper) | :x: | [:heavy_check_mark:](https://pypi.org/project/openshift-cluster-management-python-wrapper/) | `main`  |
@@ -21,5 +21,5 @@ Template for a new GitHub python repository: [python-template-repository](https:
 | [firewatch](https://github.com/RedHatQE/firewatch) | :x: | :x: | `main`  |
 | [qe-metrics](https://github.com/RedHatQE/qe-metrics) | :x: | :x: | `main`  |
 | [qe-tools-base-image](https://github.com/RedHatQE/qe-tools-base-image) | [:heavy_check_mark:](https://quay.io/repository/redhat_msi/qe-tools-base-image) | :x: | `main`  |
-| [ci-jobs-trigger](https://github.com/RedHatQE/ci-jobs-trigger) | [:heavy_check_mark:](https://quay.io/repository/redhat_msi/ci-jobs-trigger) | :x: | `main`  |
+| [ci-jobs-trigger](https://github.com/RedHatQE/ci-jobs-trigger) | [:heavy_check_mark:](https://quay.io/repository/redhat_msi/ci-jobs-trigger) | [:heavy_check_mark:](https://github.com/RedHatQE/ci-jobs-trigger/releases) | `main`  |
 | [python-utility-scripts](https://github.com/RedHatQE/python-utility-scripts) | :x: | [:heavy_check_mark:](https://pypi.org/project/python-utility-scripts/) | `main`  |

@@ -55,11 +55,19 @@ def generate_renovate_json():
     Generates renovate.json for renovatebot, add all poetry dependencies to matchPackagePatterns
     in order to force renovate to update all dependencies in one PR.
     """
-    _json = {
-        "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-        "packageRules": [{"matchPackagePatterns": get_all_deps(), "groupName": "poetry-deps"}],
-    }
-    with open("renovate.json", "w") as fd:
+    file_name = "renovate.json"
+    pkgs_rules = [{"matchPackagePatterns": get_all_deps(), "groupName": "poetry-deps"}]
+    if os.path.isfile(file_name):
+        with open(file_name, "r") as fd:
+            _json = json.load(fd)
+
+        _json["packageRules"] = pkgs_rules
+    else:
+        _json = {
+            "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+            "packageRules": pkgs_rules,
+        }
+    with open(file_name, "w") as fd:
         fd.write(json.dumps(_json))
 
 

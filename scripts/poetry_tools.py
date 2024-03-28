@@ -56,20 +56,30 @@ def generate_renovate_json():
     in order to force renovate to update all dependencies in one PR.
     """
     file_name = "renovate.json"
-    pkgs_rules = [{"matchPackagePatterns": get_all_deps(), "groupName": "poetry-deps"}]
+    pkgs_rules = {"matchPackagePatterns": get_all_deps(), "groupName": "poetry-deps"}
     if os.path.isfile(file_name):
         with open(file_name, "r") as fd:
             _json = json.load(fd)
 
-        _json["packageRules"] = pkgs_rules
+        match_package_patterns_idx = None
+        for idx, match_package_pattern in enumerate(_json.get("packageRules")):
+            if [*match_package_pattern][0] == "matchPackagePatterns":
+                match_package_patterns_idx = idx
+                break
+
+        if match_package_patterns_idx is not None:
+            _json["packageRules"].pop(match_package_patterns_idx)
+
+        _json.setdefault("packageRules", []).append(pkgs_rules)
+
     else:
         _json = {
             "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-            "packageRules": pkgs_rules,
+            "packageRules": [pkgs_rules],
         }
     with open(file_name, "w") as fd:
         fd.write(json.dumps(_json))
 
 
 if __name__ == "__main__":
-    update_all_deps()
+    pass

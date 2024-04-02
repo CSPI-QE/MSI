@@ -23,5 +23,5 @@ Template for a new GitHub python repository: [python-template-repository](https:
 | [qe-tools-base-image](https://github.com/RedHatQE/qe-tools-base-image) | [:heavy_check_mark:](https://quay.io/repository/redhat_msi/qe-tools-base-image) | :x: | `main`  |
 | [ci-jobs-trigger](https://github.com/RedHatQE/ci-jobs-trigger) | [:heavy_check_mark:](https://quay.io/repository/redhat_msi/ci-jobs-trigger) | [:heavy_check_mark:](https://github.com/RedHatQE/ci-jobs-trigger/releases) | `main`  |
 | [python-utility-scripts](https://github.com/RedHatQE/python-utility-scripts) | :x: | [:heavy_check_mark:](https://pypi.org/project/python-utility-scripts/) | `main`  |
-| [aws-cost-reporter](https://github.com/RedHatQE/aws-cost-reporter) | [✔️](https://quay.io/redhat_msi/aws-cost-reporter) | [:x:) | `main`  |
+| [aws-cost-reporter](https://github.com/RedHatQE/aws-cost-reporter) | [✔️](https://quay.io/redhat_msi/aws-cost-reporter) | :x: | | `main`  |
 | [pyhelper-utils](https://github.com/RedHatQE/pyhelper-utils) | :x: | [:heavy_check_mark:](https://pypi.org/project/pyhelper-utils/) | `main`  |

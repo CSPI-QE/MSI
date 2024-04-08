@@ -168,6 +168,7 @@ def main(yes, git_base_dir, dry_run, verbose):
         task = progress.add_task("[green]Checking for releases ", total=len(repositories) + task_progress)
 
         for repo_name, branches in repositories.items():
+            repo_task = progress.add_task(f"[yellow]Repository {repo_name} ", total=task_progress)
             LOGGER.debug(f"Working on {repo_name} with branches {branches}")
             repo_name = repositories_mapping.get(repo_name, repo_name)
             repo_path = os.path.join(git_base_dir, repo_name)
@@ -187,11 +188,8 @@ def main(yes, git_base_dir, dry_run, verbose):
                         if "undefined" in changelog or not changelog:
                             LOGGER.debug(f"{repo_name} branch {branch} has no changes, skipping")
                             table.add_row(repo_name, branch, "No", "None", "None", "No")
-                            progress.update(
-                                task,
-                                advance=task_progress,
-                                refresh=True,
-                            )
+                            progress.update(repo_task, advance=task_progress, refresh=True)
+                            progress.update(task, advance=task_progress, refresh=True)
                             continue
 
                         LOGGER.debug(
@@ -214,6 +212,7 @@ def main(yes, git_base_dir, dry_run, verbose):
                                 changelog,
                                 "Dry Run",
                             )
+                            progress.update(repo_task, advance=task_progress, refresh=True)
                             progress.update(task, advance=task_progress, refresh=True)
                             continue
 
@@ -237,11 +236,14 @@ def main(yes, git_base_dir, dry_run, verbose):
                                     f"Running release-it patch --ci to make release for {repo_name} branch {branch}"
                                 )
                                 os.system("release-it patch --ci")
+                                progress.update(repo_task, advance=task_progress, refresh=True)
                                 progress.update(task, advance=task_progress, refresh=True)
+
                             except Exception as exp:
                                 LOGGER.error(
                                     f"Failed to make release for {repo_name} branch {branch} with error: {exp}"
                                 )
+                                progress.update(repo_task, advance=task_progress, refresh=True)
                                 progress.update(task, advance=task_progress, refresh=True)
 
                         else:
@@ -253,6 +255,7 @@ def main(yes, git_base_dir, dry_run, verbose):
                                 changelog,
                                 "No",
                             )
+                            progress.update(repo_task, advance=task_progress, refresh=True)
                             progress.update(task, advance=task_progress, refresh=True)
                             continue
 

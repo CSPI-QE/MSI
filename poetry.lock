@@ -395,6 +395,23 @@ files = [
 tests = ["pytest"]
 
 [[package]]
+name = "pyaml-env"
+version = "1.2.1"
+description = "Provides yaml file parsing with environment variable resolution"
+optional = false
+python-versions = ">=3.6"
+files = [
+    {file = "pyaml_env-1.2.1-py3-none-any.whl", hash = "sha256:2e7da2d4bba0629711ade1a41864e5e200c84ded896a3d27e9f560fae7311c36"},
+    {file = "pyaml_env-1.2.1.tar.gz", hash = "sha256:6d5dc98c8c82df743a132c196e79963050c9feb05b0a6f25f3ad77771d3d95b0"},
+]
+
+[package.dependencies]
+PyYAML = ">=5.0,<=7.0"
+
+[package.extras]
+test = ["pytest"]
+
+[[package]]
 name = "pygments"
 version = "2.17.2"
 description = "Pygments is a syntax highlighting package written in Python."
@@ -607,4 +624,4 @@ files = [
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.11"
-content-hash = "5f6791badbce759a69401efb31344c3b36743ab27bad2bfffebbb60243f2b869"
+content-hash = "3bbc0da2aa70c133a123741688a50266de62cd4b0e91126450f9d3b94beade44"

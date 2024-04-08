@@ -7,12 +7,12 @@ import subprocess
 import shlex
 import click
 import requests
-import yaml
 import rich
 from rich.prompt import Confirm
 from contextlib import contextmanager
 from rich import box
 from rich.table import Table
+from pyaml_env import parse_config
 
 
 def base_table() -> Table:
@@ -170,10 +170,14 @@ def main(yes: bool, git_base_dir: str, dry_run: bool, verbose: bool):
             if verbose:
                 progress.console.print(f"Found config file: {config_file}")
 
-            with open(config_file) as fd:
-                config_data = yaml.safe_load(fd.read())
-                if verbose:
-                    progress.console.print(f"Config data: {config_data}")
+            config_data = parse_config(config_file)
+            if not config_data:
+                progress.console.print(f"Failed to parse config file: {config_file}")
+                exit(1)
+
+            if verbose:
+                progress.console.print(f"Config data: {config_data}")
+
         elif verbose:
             progress.console.print(f"Config file {config_file} does not exist")
 

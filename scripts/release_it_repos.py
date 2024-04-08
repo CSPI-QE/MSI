@@ -258,7 +258,11 @@ def main(yes: bool, git_base_dir: str, dry_run: bool, verbose: bool):
                                         f"Running release-it patch --ci to make release for {repo_name} branch {branch}"
                                     )
 
-                                os.system("release-it patch --ci")
+                                subprocess.run(
+                                    shlex.split("release-it patch --ci"),
+                                    stdout=subprocess.PIPE,
+                                    stderr=subprocess.PIPE,
+                                )
                                 progress.update(repo_task, advance=task_progress, refresh=True)
                                 progress.update(task, advance=task_progress, refresh=True)
 

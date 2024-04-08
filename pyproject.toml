@@ -27,7 +27,13 @@ python = "^3.11"
 pyyaml = "^6.0.1"
 requests = "^2.31.0"
 click = "^8.1.7"
+rich = "^13.7.1"
+python-simple-logger = "^1.0.19"
 
+
+[tool.poetry.group.dev.dependencies]
+ipython = "^8.23.0"
+ipdb = "^0.13.13"
 
 [build-system]
 requires = ["poetry-core"]

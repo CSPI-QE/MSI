@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
 import logging
+from rich.progress import Progress
 import os
 import re
 import subprocess
@@ -12,9 +13,28 @@ import rich
 from rich.prompt import Confirm
 from contextlib import contextmanager
 from simple_logger.logger import get_logger
+from rich import box
+from rich.table import Table
 
 
 LOGGER = get_logger("release-it-repos")
+
+
+def base_table() -> Table:
+    table = Table(
+        title="Cluster Configuration Report",
+        show_lines=True,
+        box=box.ROUNDED,
+        expand=False,
+    )
+    table.add_column("Repository", style="cyan", no_wrap=True)
+    table.add_column("Branch", style="magenta")
+    table.add_column("Status", style="green")
+    table.add_column("Version", style="green")
+    table.add_column("Changelog", style="green")
+    table.add_column("Released", style="green")
+
+    return table
 
 
 @contextmanager
@@ -32,12 +52,15 @@ def change_git_branch(repo, branch):
     LOGGER.debug(f"{repo}: User branch: {user_branch}")
     LOGGER.debug(f"{repo}: Checkout branch: {branch}")
 
-    subprocess.run(
-        shlex.split(f"git checkout {branch}"),
-        stdout=subprocess.PIPE,
-        stderr=subprocess.PIPE,
-    )
+    if user_branch != branch:
+        subprocess.run(
+            shlex.split(f"git checkout {branch}"),
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+        )
+
     LOGGER.debug(f"{repo}: Check if {branch} is clean")
+
     git_status = subprocess.run(
         shlex.split("git status --porcelain"),
         stdout=subprocess.PIPE,
@@ -45,7 +68,7 @@ def change_git_branch(repo, branch):
     )
     if dirty_git := git_status.stdout.decode("utf-8"):
         LOGGER.debug(f"{repo}: {branch} is dirty, stashing")
-        subprocess.run(shlex.split("git stash"))
+        subprocess.run(shlex.split("git stash"), stderr=subprocess.PIPE, stdout=subprocess.PIPE)
 
     LOGGER.debug(f"{repo}: Pulling {branch} from origin")
     subprocess.run(
@@ -55,10 +78,26 @@ def change_git_branch(repo, branch):
     )
     yield
     LOGGER.debug(f"{repo}: Checkout back to last user branch: {user_branch}")
-    subprocess.run(shlex.split(f"git checkout {user_branch}"))
+    current_branch = (
+        subprocess.run(
+            shlex.split("git branch --show-current"),
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+        )
+        .stdout.decode("utf-8")
+        .strip()
+    )
+
+    if current_branch != user_branch:
+        subprocess.run(
+            shlex.split(f"git checkout {user_branch}"),
+            stderr=subprocess.PIPE,
+            stdout=subprocess.PIPE,
+        )
+
     if dirty_git:
         LOGGER.debug(f"{repo}: popping stash back for {branch}")
-        subprocess.run(shlex.split("git stash pop"))
+        subprocess.run(shlex.split("git stash pop"), stderr=subprocess.PIPE, stdout=subprocess.PIPE)
 
 
 @contextmanager
@@ -73,6 +112,7 @@ def change_directory(path):
 
 
 def get_repositories():
+    repositories = {}
     repos = requests.get("https://raw.githubusercontent.com/CSPI-QE/MSI/main/REPOS_INVENTORY.md").content
     for line in repos.decode("utf-8").splitlines():
         if re.findall(r"\[.*]\(.*\)", line):
@@ -84,7 +124,9 @@ def get_repositories():
                 repo_name = re.findall(r"\[.*]", repo_data[0])[0].strip("[").rstrip("]")
                 branches = [br.strip("`") for br in repo_data[3].split()]
                 LOGGER.debug(f"Found {repo_name} with branches {branches}")
-                yield (repo_name, branches)
+                repositories[repo_name] = branches
+
+    return repositories
 
 
 @click.command("installer")
@@ -106,6 +148,8 @@ def get_repositories():
 @click.option("-d", "--dry-run", is_flag=True, help="Dry run")
 @click.option("-v", "--verbose", is_flag=True, help="Verbose")
 def main(yes, git_base_dir, dry_run, verbose):
+    table = base_table()
+
     if verbose:
         LOGGER.level = logging.DEBUG
     else:
@@ -118,57 +162,102 @@ def main(yes, git_base_dir, dry_run, verbose):
         with open(config_file) as fd:
             repositories_mapping = yaml.safe_load(fd.read())
 
-    for repo_data in get_repositories():
-        LOGGER.debug(f"Working on {repo_data}")
-        repo_name, branches = repo_data[0], repo_data[1]
-        repo_name = repositories_mapping.get(repo_name, repo_name)
-        repo_path = os.path.join(git_base_dir, repo_name)
-        with change_directory(repo_path):
-            for branch in branches:
-                rich.print(f"\nWorking on {repo_name} branch {branch} ...")
-                with change_git_branch(repo=repo_name, branch=branch):
-                    LOGGER.debug(
-                        f"Running release-it --changelog to check if need to make release for {repo_name} branch {branch}"
-                    )
-                    res = subprocess.run(
-                        shlex.split("release-it --changelog"),
-                        stdout=subprocess.PIPE,
-                        stderr=subprocess.PIPE,
-                    )
-                    out = res.stdout.decode("utf-8")
-                    if "undefined" in out or not out:
-                        LOGGER.debug(f"{repo_name} branch {branch} has no changes, skipping")
-                        continue
+    repositories = get_repositories()
+    task_progress = 1
+    with Progress() as progress:
+        task = progress.add_task("[green]Checking for releases ", total=len(repositories) + task_progress)
 
-                    LOGGER.debug(
-                        f"Running release-it --release-version to get next release version {repo_name} branch {branch}"
-                    )
-                    next_release = subprocess.run(
-                        shlex.split("release-it --release-version"),
-                        stdout=subprocess.PIPE,
-                    )
-                    rich.print(f"\n[{repo_name}]\n{out}\n")
-                    if dry_run:
-                        continue
+        for repo_name, branches in repositories.items():
+            LOGGER.debug(f"Working on {repo_name} with branches {branches}")
+            repo_name = repositories_mapping.get(repo_name, repo_name)
+            repo_path = os.path.join(git_base_dir, repo_name)
 
-                    if yes:
-                        user_input = True
-                    else:
-                        user_input = Confirm.ask(
-                            f"Do you want to make a new release [{next_release.stdout.decode('utf-8').strip()}] for {repo_name} on branch {branch}?"
+            with change_directory(repo_path):
+                for branch in branches:
+                    with change_git_branch(repo=repo_name, branch=branch):
+                        LOGGER.debug(
+                            f"Running release-it --changelog to check if need to make release for {repo_name} branch {branch}"
                         )
-                    if user_input:
-                        try:
-                            LOGGER.debug(
-                                f"Running release-it patch --ci to make release for {repo_name} branch {branch}"
+                        res = subprocess.run(
+                            shlex.split("release-it --changelog"),
+                            stdout=subprocess.PIPE,
+                            stderr=subprocess.PIPE,
+                        )
+                        changelog = res.stdout.decode("utf-8")
+                        if "undefined" in changelog or not changelog:
+                            LOGGER.debug(f"{repo_name} branch {branch} has no changes, skipping")
+                            table.add_row(repo_name, branch, "No", "None", "None", "No")
+                            progress.update(
+                                task,
+                                advance=task_progress,
+                                refresh=True,
                             )
-                            os.system("release-it patch --ci")
-                            rich.print("\n")
-                        except Exception as exp:
-                            LOGGER.error(f"Failed to make release for {repo_name} branch {branch} with error: {exp}")
+                            continue
 
-                    else:
-                        continue
+                        LOGGER.debug(
+                            f"Running release-it --release-version to get next release version {repo_name} branch {branch}"
+                        )
+                        next_release = subprocess.run(
+                            shlex.split("release-it --release-version"),
+                            stdout=subprocess.PIPE,
+                            stderr=subprocess.PIPE,
+                        )
+                        next_release = next_release.stdout.decode("utf-8").strip()
+
+                        LOGGER.debug(f"\n[{repo_name}]\n{changelog}\n")
+                        if dry_run:
+                            table.add_row(
+                                repo_name,
+                                branch,
+                                "Yes",
+                                next_release,
+                                changelog,
+                                "Dry Run",
+                            )
+                            progress.update(task, advance=task_progress, refresh=True)
+                            continue
+
+                        if yes:
+                            user_input = True
+                        else:
+                            user_input = Confirm.ask(
+                                f"Do you want to make a new release [{next_release}] for {repo_name} on branch {branch}?"
+                            )
+                        if user_input:
+                            table.add_row(
+                                repo_name,
+                                branch,
+                                "Yes",
+                                next_release,
+                                changelog,
+                                "Yes",
+                            )
+                            try:
+                                LOGGER.debug(
+                                    f"Running release-it patch --ci to make release for {repo_name} branch {branch}"
+                                )
+                                os.system("release-it patch --ci")
+                                progress.update(task, advance=task_progress, refresh=True)
+                            except Exception as exp:
+                                LOGGER.error(
+                                    f"Failed to make release for {repo_name} branch {branch} with error: {exp}"
+                                )
+                                progress.update(task, advance=task_progress, refresh=True)
+
+                        else:
+                            table.add_row(
+                                repo_name,
+                                branch,
+                                "Yes",
+                                next_release,
+                                changelog,
+                                "No",
+                            )
+                            progress.update(task, advance=task_progress, refresh=True)
+                            continue
+
+        progress.update(task, advance=task_progress, refresh=True)
+    rich.print(table)
 
 
 if __name__ == "__main__":

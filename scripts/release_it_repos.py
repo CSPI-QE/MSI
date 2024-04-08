@@ -205,7 +205,6 @@ def main(yes: bool, git_base_dir: str, dry_run: bool, verbose: bool):
                             if verbose:
                                 progress.console.print(f"{repo_name} branch {branch} has no changes, skipping")
 
-                            table.add_row(repo_name, branch, "No", "None", "None", "No")
                             progress.update(repo_task, advance=task_progress, refresh=True)
                             progress.update(task, advance=task_progress, refresh=True)
                             continue
@@ -291,7 +290,11 @@ def main(yes: bool, git_base_dir: str, dry_run: bool, verbose: bool):
                             continue
 
         progress.update(task, advance=task_progress, refresh=True)
-    rich.print(table)
+
+    if table.rows:
+        rich.print(table)
+    else:
+        rich.print("/n[yellow][bold]No new content found for any repositories[not bold][not yellow]")
 
 
 if __name__ == "__main__":

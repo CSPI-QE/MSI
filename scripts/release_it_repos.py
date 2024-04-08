@@ -152,7 +152,6 @@ def get_repositories(progress: Progress, verbose: bool) -> dict:
     "-g",
     "--git-base-dir",
     default=os.getenv("GIT_BASE_DIR"),
-    type=click.Path(exists=True),
     show_default=True,
     help="Git base directory",
 )
@@ -165,19 +164,39 @@ def main(yes: bool, git_base_dir: str, dry_run: bool, verbose: bool):
         repositories = get_repositories(progress=progress, verbose=verbose)
         task_progress = 1
         task = progress.add_task("[green]Checking for releases ", total=len(repositories) + task_progress)
-        repositories_mapping = {}
+        config_data = {}
         config_file = os.path.join(os.path.expanduser("~"), ".config", "release-it-check", "config.yaml")
         if os.path.isfile(config_file):
             if verbose:
-                progress.console.print(f"Found config file for repositories mapping: {config_file}")
+                progress.console.print(f"Found config file: {config_file}")
 
             with open(config_file) as fd:
-                repositories_mapping = yaml.safe_load(fd.read())
+                config_data = yaml.safe_load(fd.read())
+                if verbose:
+                    progress.console.print(f"Config data: {config_data}")
+        elif verbose:
+            progress.console.print(f"Config file {config_file} does not exist")
+
+        git_base_dir = config_data.get("git_base_dir", git_base_dir)
+        repositories_mapping = config_data.get("repositories-mapping", {})
+        include_repositories = config_data.get("include-repositories", [])
+
+        if not os.path.isdir(git_base_dir):
+            progress.console.print(f"Git base directory {git_base_dir} does not exist")
+            exit(1)
 
         for repo_name, branches in repositories.items():
             repo_task = progress.add_task(f"[yellow]Repository {repo_name} ", total=task_progress)
             if verbose:
                 progress.console.print(f"Working on {repo_name} with branches {branches}")
+
+            if include_repositories and repo_name not in include_repositories:
+                if verbose:
+                    progress.console.print(f"{repo_name} is not in include_repositories, skipping")
+
+                progress.update(repo_task, advance=task_progress, refresh=True)
+                progress.update(task, advance=task_progress, refresh=True)
+                continue
 
             repo_name = repositories_mapping.get(repo_name, repo_name)
             repo_path = os.path.join(git_base_dir, repo_name)

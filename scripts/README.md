@@ -1,12 +1,14 @@
 # Scripts
 
 ## Requirements
+
 - [poetry](https://python-poetry.org/)
 - [pipx](https://github.com/pypa/pipx)
 
 ## Installation
 
 With poetry
+
 ```bash
 poetry install
 ```
@@ -26,11 +28,13 @@ git remote update
 ```
 
 With poetry
+
 ```bash
 poetry install
 ```
 
 With pipx
+
 ```bash
 pipx install -f .
 ```
@@ -40,21 +44,29 @@ pipx install -f .
 Check and release to Pypi using [release-it](https://github.com/release-it/release-it) for all repositories under [REPOS_INVENTORY](../REPOS_INVENTORY.md)
 
 ### Usage
-set os environment to base git repositories path
+
+set os environment or in the config file to base git repositories path
 
 ```bash
 export GIT_BASE_DIR=<git repositories path>
 ```
 
 If local repository folder is different from the repository name override them in the config file `/home/<user>/.config/release-it-check/config.yaml`
+
 ```yaml
-cloud-tools: cloud-tools-upstream
+git-base-dir: ~/git/
+
+repositories-mapping:
+  cloud-tools: cloud-tools-upstream
+
+include-repositories:
+  - cloud-tools
 ```
 
 ### Usage
+
 run `poetry run release-it-repos` to execute the script
 Check `poetry run release-it-repos --help` for more info
-
 
 ## poetry-update-repo
 

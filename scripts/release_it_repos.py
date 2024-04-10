@@ -163,7 +163,7 @@ def main(yes: bool, git_base_dir: str, dry_run: bool, verbose: bool):
     with Progress() as progress:
         repositories = get_repositories(progress=progress, verbose=verbose)
         task_progress = 1
-        task = progress.add_task("[green]Checking for releases ", total=len(repositories) + task_progress)
+        task = progress.add_task("[green]Checking for releases ", total=len(repositories))
         config_data = {}
         config_file = os.path.join(os.path.expanduser("~"), ".config", "release-it-check", "config.yaml")
         if os.path.isfile(config_file):

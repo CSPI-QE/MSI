@@ -26,3 +26,4 @@ Template for a new GitHub python repository: [python-template-repository](https:
 | [aws-cost-reporter](https://github.com/RedHatQE/aws-cost-reporter) | [✔️](https://quay.io/redhat_msi/aws-cost-reporter) | :x: | `main`  |
 | [pyhelper-utils](https://github.com/RedHatQE/pyhelper-utils) | :x: | [:heavy_check_mark:](https://pypi.org/project/pyhelper-utils/) | `main`  |
 | [openshift-day2-configuration](https://github.com/RedHatQE/openshift-day2-configuration) | [✔️](https://quay.io/redhat_msi/openshift-day2-configuration) | [:heavy_check_mark:](https://pypi.org/project/openshift-day2-configuration/) | `main`  |
+| [github-webhook-server](https://github.com/myk-org/github-webhook-server) | [✔️](https://quay.io/repository/myakove/github-webhook-server) | [:heavy_check_mark:](https://pypi.org/project/github-webhook-server/) | `main`  |

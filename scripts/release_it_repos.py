@@ -190,7 +190,7 @@ def main(yes: bool, git_base_dir: str, dry_run: bool, verbose: bool):
             exit(1)
 
         for repo_name, branches in repositories.items():
-            repo_task = progress.add_task(f"[yellow]Repository {repo_name} ", total=task_progress)
+            repo_task = progress.add_task(f"  [yellow]{repo_name} ", total=task_progress)
             if verbose:
                 progress.console.print(f"Working on {repo_name} with branches {branches}")
 
@@ -207,6 +207,7 @@ def main(yes: bool, git_base_dir: str, dry_run: bool, verbose: bool):
 
             with change_directory(path=repo_path, progress=progress, verbose=verbose):
                 for branch in branches:
+                    branch_task = progress.add_task(f"    [blue]{branch} ", total=task_progress)
                     with change_git_branch(
                         repo=repo_name,
                         branch=branch,
@@ -228,6 +229,7 @@ def main(yes: bool, git_base_dir: str, dry_run: bool, verbose: bool):
                             if verbose:
                                 progress.console.print(f"{repo_name} branch {branch} has no changes, skipping")
 
+                            progress.update(branch_task, advance=task_progress, refresh=True)
                             progress.update(repo_task, advance=task_progress, refresh=True)
                             progress.update(task, advance=task_progress, refresh=True)
                             continue
@@ -255,6 +257,7 @@ def main(yes: bool, git_base_dir: str, dry_run: bool, verbose: bool):
                                 changelog,
                                 "Dry Run",
                             )
+                            progress.update(branch_task, advance=task_progress, refresh=True)
                             progress.update(repo_task, advance=task_progress, refresh=True)
                             progress.update(task, advance=task_progress, refresh=True)
                             continue
@@ -285,6 +288,7 @@ def main(yes: bool, git_base_dir: str, dry_run: bool, verbose: bool):
                                     stdout=subprocess.PIPE,
                                     stderr=subprocess.PIPE,
                                 )
+                                progress.update(branch_task, advance=task_progress, refresh=True)
                                 progress.update(repo_task, advance=task_progress, refresh=True)
                                 progress.update(task, advance=task_progress, refresh=True)
 
@@ -292,6 +296,7 @@ def main(yes: bool, git_base_dir: str, dry_run: bool, verbose: bool):
                                 progress.console.print(
                                     f"Failed to make release for {repo_name} branch {branch} with error: {exp}"
                                 )
+                                progress.update(branch_task, advance=task_progress, refresh=True)
                                 progress.update(repo_task, advance=task_progress, refresh=True)
                                 progress.update(task, advance=task_progress, refresh=True)
 

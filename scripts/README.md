@@ -55,11 +55,18 @@ If local repository folder is different from the repository name override them i
 
 ```yaml
 git-base-dir: ~/git/
+repositories: https://raw.githubusercontent.com/CSPI-QE/MSI/main/REPOS_INVENTORY.md # Either link to inventory file or list of repositories
+repositories:
+  https://github.com/user/repository1:
+    - main
+  https://github.com/user/repository2:
+    - main
+    - feature
 
-repositories-mapping:
+repositories-mapping: # IF local repository folder is different from the repository name
   cloud-tools: cloud-tools-upstream
 
-include-repositories:
+include-repositories: # Check only these repositories
   - cloud-tools
 ```
 

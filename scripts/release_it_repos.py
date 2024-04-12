@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
 import logging
+from typing import Dict, List
 from rich.progress import Progress
 import os
 import re
@@ -97,23 +98,31 @@ def change_directory(path: str, progress: Progress, verbose: bool):
     os.chdir(current_path)
 
 
-def get_repositories(progress: Progress, verbose: bool) -> dict:
-    repositories = {}
-    repos = requests.get("https://raw.githubusercontent.com/CSPI-QE/MSI/main/REPOS_INVENTORY.md").content
-    for line in repos.decode("utf-8").splitlines():
-        if re.findall(r"\[.*]\(.*\)", line):
-            repo_data = [section.strip() for section in line.split("|") if section]
-            if len(repo_data) < 4:
-                continue
+def get_repositories(progress: Progress, verbose: bool, repositories: Dict[str, List[str]] | str) -> dict:
+    final_repositories = {}
 
-            if ":heavy_check_mark:" in repo_data[2]:
-                repo_name = re.findall(r"\[.*]", repo_data[0])[0].strip("[").rstrip("]")
-                branches = [br.strip("`") for br in repo_data[3].split()]
-                if verbose:
-                    progress.console.print(f"Found {repo_name} with branches {branches}")
-                repositories[repo_name] = branches
+    if isinstance(repositories, str):
+        repos = requests.get(repositories).content
+        for line in repos.decode("utf-8").splitlines():
+            if re.findall(r"\[.*]\(.*\)", line):
+                repo_data = [section.strip() for section in line.split("|") if section]
+                if len(repo_data) < 4:
+                    continue
 
-    return repositories
+                if ":heavy_check_mark:" in repo_data[2]:
+                    repo_name = re.findall(r"\[.*]", repo_data[0])[0].strip("[").rstrip("]")
+                    branches = [br.strip("`") for br in repo_data[3].split()]
+                    if verbose:
+                        progress.console.print(f"Found {repo_name} with branches {branches}")
+                    final_repositories[repo_name] = branches
+    else:
+        for repo_url, branches in repositories.items():
+            repo = repo_url.split("/")[-1]
+            if verbose:
+                progress.console.print(f"Found {repo} with branches {branches}")
+            final_repositories[repo] = branches
+
+    return final_repositories
 
 
 @click.command("installer")
@@ -139,9 +148,6 @@ def main(yes: bool, git_base_dir: str, dry_run: bool, verbose: bool):
     table = base_table()
 
     with Progress() as progress:
-        repositories = get_repositories(progress=progress, verbose=verbose)
-        task_progress = 1
-        task = progress.add_task("[green]Checking for releases ", total=len(repositories))
         config_data = {}
         config_file = os.path.join(os.path.expanduser("~"), ".config", "release-it-check", "config.yaml")
         if os.path.isfile(config_file):
@@ -159,6 +165,12 @@ def main(yes: bool, git_base_dir: str, dry_run: bool, verbose: bool):
         elif verbose:
             progress.console.print(f"Config file {config_file} does not exist")
 
+        _repositories = config_data.get(
+            "repositories", "https://raw.githubusercontent.com/CSPI-QE/MSI/main/REPOS_INVENTORY.md"
+        )
+        repositories = get_repositories(progress=progress, verbose=verbose, repositories=_repositories)
+        task_progress = 1
+        task = progress.add_task("[green]Checking for releases ", total=len(repositories))
         git_base_dir = config_data.get("git_base_dir", git_base_dir)
         repositories_mapping = config_data.get("repositories-mapping", {})
         include_repositories = config_data.get("include-repositories", [])

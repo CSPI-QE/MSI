@@ -36,8 +36,10 @@ poetry install
 With pipx
 
 ```bash
-pipx install -f .
+pipx install .
 ```
+
+if already installed run `pipx uninstall MSI && pipx install .`
 
 ## release-it-repos
 
@@ -50,8 +52,6 @@ set os environment or in the config file to base git repositories path
 ```bash
 export GIT_BASE_DIR=<git repositories path>
 ```
-
-If local repository folder is different from the repository name override them in the config file `/home/<user>/.config/release-it-check/config.yaml`
 
 ```yaml
 git-base-dir: ~/git/

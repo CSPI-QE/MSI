@@ -140,30 +140,32 @@ def get_repositories(progress: Progress, verbose: bool, repositories: Dict[str, 
     show_default=True,
     help="Git base directory",
 )
+@click.option("-c", "--config-file", show_default=True, help="Config file")
 @click.option("-d", "--dry-run", is_flag=True, help="Run the program but do not make any releases")
 @click.option("-v", "--verbose", is_flag=True, help="Verbose logging")
-def main(yes: bool, git_base_dir: str, dry_run: bool, verbose: bool):
+def main(yes: bool, git_base_dir: str, config_file: str, dry_run: bool, verbose: bool):
     if not verbose:
         logging.disable(logging.CRITICAL)
     table = base_table()
 
     with Progress() as progress:
         config_data = {}
-        config_file = os.path.join(os.path.expanduser("~"), ".config", "release-it-check", "config.yaml")
-        if os.path.isfile(config_file):
-            if verbose:
-                progress.console.print(f"Found config file: {config_file}")
+        if config_file:
+            if os.path.isfile(config_file):
+                if verbose:
+                    progress.console.print(f"Found config file: {config_file}")
 
-            config_data = parse_config(config_file)
-            if not config_data:
-                progress.console.print(f"Failed to parse config file: {config_file}")
+                config_data = parse_config(config_file)
+                if not config_data:
+                    progress.console.print(f"Failed to parse config file: {config_file}")
+                    exit(1)
+
+                if verbose:
+                    progress.console.print(f"Config data: {config_data}")
+
+            elif verbose:
+                progress.console.print(f"Config file {config_file} does not exist")
                 exit(1)
-
-            if verbose:
-                progress.console.print(f"Config data: {config_data}")
-
-        elif verbose:
-            progress.console.print(f"Config file {config_file} does not exist")
 
         _repositories = config_data.get(
             "repositories", "https://raw.githubusercontent.com/CSPI-QE/MSI/main/REPOS_INVENTORY.md"

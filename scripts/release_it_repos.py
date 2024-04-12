@@ -190,7 +190,7 @@ def main(yes: bool, git_base_dir: str, dry_run: bool, verbose: bool):
             exit(1)
 
         for repo_name, branches in repositories.items():
-            repo_task = progress.add_task(f"  [yellow]{repo_name} ", total=task_progress)
+            repo_task = progress.add_task(f"  [yellow]{repo_name} ", total=len(branches))
             if verbose:
                 progress.console.print(f"Working on {repo_name} with branches {branches}")
 
@@ -309,13 +309,16 @@ def main(yes: bool, git_base_dir: str, dry_run: bool, verbose: bool):
                                 changelog,
                                 "No",
                             )
-                            progress.update(
-                                repo_task,
-                                advance=task_progress,
-                                refresh=True,
-                            )
+                            progress.update(branch_task, advance=task_progress, refresh=True)
+                            progress.update(repo_task, advance=task_progress, refresh=True)
                             progress.update(task, advance=task_progress, refresh=True)
                             continue
+
+                progress.update(
+                    repo_task,
+                    advance=task_progress,
+                    refresh=True,
+                )
 
         progress.update(task, advance=task_progress, refresh=True)
 

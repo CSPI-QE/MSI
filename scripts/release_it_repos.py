@@ -155,8 +155,8 @@ def get_repositories(progress: Progress, verbose: bool) -> dict:
     show_default=True,
     help="Git base directory",
 )
-@click.option("-d", "--dry-run", is_flag=True, help="Dry run")
-@click.option("-v", "--verbose", is_flag=True, help="Verbose")
+@click.option("-d", "--dry-run", is_flag=True, help="Run the program but do not make any releases")
+@click.option("-v", "--verbose", is_flag=True, help="Verbose logging")
 def main(yes: bool, git_base_dir: str, dry_run: bool, verbose: bool):
     table = base_table()
 
@@ -263,20 +263,12 @@ def main(yes: bool, git_base_dir: str, dry_run: bool, verbose: bool):
                             continue
 
                         if yes:
-                            user_input = True
+                            make_release = True
                         else:
-                            user_input = Confirm.ask(
+                            make_release = Confirm.ask(
                                 f"Do you want to make a new release [{next_release}] for {repo_name} on branch {branch}?"
                             )
-                        if user_input:
-                            table.add_row(
-                                repo_name,
-                                branch,
-                                "Yes",
-                                next_release,
-                                changelog,
-                                "Yes",
-                            )
+                        if make_release:
                             try:
                                 if verbose:
                                     progress.console.print(
@@ -288,6 +280,14 @@ def main(yes: bool, git_base_dir: str, dry_run: bool, verbose: bool):
                                     stdout=subprocess.PIPE,
                                     stderr=subprocess.PIPE,
                                 )
+                                table.add_row(
+                                    repo_name,
+                                    branch,
+                                    "Yes",
+                                    next_release,
+                                    changelog,
+                                    "Yes",
+                                )
                                 progress.update(branch_task, advance=task_progress, refresh=True)
                                 progress.update(repo_task, advance=task_progress, refresh=True)
                                 progress.update(task, advance=task_progress, refresh=True)
@@ -295,6 +295,14 @@ def main(yes: bool, git_base_dir: str, dry_run: bool, verbose: bool):
                             except Exception as exp:
                                 progress.console.print(
                                     f"Failed to make release for {repo_name} branch {branch} with error: {exp}"
+                                )
+                                table.add_row(
+                                    repo_name,
+                                    branch,
+                                    "Yes",
+                                    next_release,
+                                    changelog,
+                                    "Failed",
                                 )
                                 progress.update(branch_task, advance=task_progress, refresh=True)
                                 progress.update(repo_task, advance=task_progress, refresh=True)

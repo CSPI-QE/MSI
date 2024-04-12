@@ -1,9 +1,9 @@
 #!/usr/bin/env python
 
+import logging
 from rich.progress import Progress
 import os
 import re
-import subprocess
 import shlex
 import click
 import requests
@@ -13,6 +13,7 @@ from contextlib import contextmanager
 from rich import box
 from rich.table import Table
 from pyaml_env import parse_config
+from pyhelper_utils.shell import run_command
 
 
 def base_table() -> Table:
@@ -34,75 +35,50 @@ def base_table() -> Table:
 
 @contextmanager
 def change_git_branch(repo: str, branch: str, progress: Progress, verbose: bool):
-    user_branch = (
-        subprocess.run(
-            shlex.split("git branch --show-current"),
-            stdout=subprocess.PIPE,
-            stderr=subprocess.PIPE,
-        )
-        .stdout.decode("utf-8")
-        .strip()
-    )
+    _, user_branch, _ = run_command(command=shlex.split("git branch --show-current"))
 
     if verbose:
         progress.console.print(f"{repo}: User branch: {user_branch}")
         progress.console.print(f"{repo}: Checkout branch: {branch}")
 
     if user_branch != branch:
-        subprocess.run(
-            shlex.split(f"git checkout {branch}"),
-            stdout=subprocess.PIPE,
-            stderr=subprocess.PIPE,
-        )
+        run_command(command=shlex.split(f"git checkout {branch}"))
 
     if verbose:
         progress.console.print(f"{repo}: Check if {branch} is clean")
 
-    git_status = subprocess.run(
-        shlex.split("git status --porcelain"),
-        stdout=subprocess.PIPE,
-        stderr=subprocess.PIPE,
-    )
-    if dirty_git := git_status.stdout.decode("utf-8"):
+    _, dirty_git, _ = run_command(command=shlex.split("git status --porcelain"))
+
+    if dirty_git:
         if verbose:
             progress.console.print(f"{repo}: {branch} is dirty, stashing")
 
-        subprocess.run(shlex.split("git stash"), stderr=subprocess.PIPE, stdout=subprocess.PIPE)
+        run_command(shlex.split("git stash"))
 
     if verbose:
         progress.console.print(f"{repo}: Pulling {branch} from origin")
 
-    subprocess.run(
+    run_command(
         shlex.split(f"git pull origin {branch}"),
-        stdout=subprocess.PIPE,
-        stderr=subprocess.PIPE,
     )
     yield
     if verbose:
         progress.console.print(f"{repo}: Checkout back to last user branch: {user_branch}")
 
-    current_branch = (
-        subprocess.run(
-            shlex.split("git branch --show-current"),
-            stdout=subprocess.PIPE,
-            stderr=subprocess.PIPE,
-        )
-        .stdout.decode("utf-8")
-        .strip()
+    current_branch = run_command(
+        shlex.split("git branch --show-current"),
     )
 
     if current_branch != user_branch:
-        subprocess.run(
+        run_command(
             shlex.split(f"git checkout {user_branch}"),
-            stderr=subprocess.PIPE,
-            stdout=subprocess.PIPE,
         )
 
     if dirty_git:
         if verbose:
             progress.console.print(f"{repo}: popping stash back for {branch}")
 
-        subprocess.run(shlex.split("git stash pop"), stderr=subprocess.PIPE, stdout=subprocess.PIPE)
+        run_command(shlex.split("git stash pop"))
 
 
 @contextmanager
@@ -158,6 +134,8 @@ def get_repositories(progress: Progress, verbose: bool) -> dict:
 @click.option("-d", "--dry-run", is_flag=True, help="Run the program but do not make any releases")
 @click.option("-v", "--verbose", is_flag=True, help="Verbose logging")
 def main(yes: bool, git_base_dir: str, dry_run: bool, verbose: bool):
+    if not verbose:
+        logging.disable(logging.CRITICAL)
     table = base_table()
 
     with Progress() as progress:
@@ -219,12 +197,10 @@ def main(yes: bool, git_base_dir: str, dry_run: bool, verbose: bool):
                                 f"Running release-it --changelog to check if need to make release for {repo_name} branch {branch}"
                             )
 
-                        res = subprocess.run(
+                        _, changelog, _ = run_command(
                             shlex.split("release-it --changelog"),
-                            stdout=subprocess.PIPE,
-                            stderr=subprocess.PIPE,
                         )
-                        changelog = res.stdout.decode("utf-8")
+
                         if "undefined" in changelog or not changelog:
                             if verbose:
                                 progress.console.print(f"{repo_name} branch {branch} has no changes, skipping")
@@ -238,12 +214,9 @@ def main(yes: bool, git_base_dir: str, dry_run: bool, verbose: bool):
                                 f"Running release-it --release-version to get next release version {repo_name} branch {branch}"
                             )
 
-                        next_release = subprocess.run(
+                        _, next_release, _ = run_command(
                             shlex.split("release-it --release-version"),
-                            stdout=subprocess.PIPE,
-                            stderr=subprocess.PIPE,
                         )
-                        next_release = next_release.stdout.decode("utf-8").strip()
 
                         if verbose:
                             progress.console.print(f"\n[{repo_name}]\n{changelog}\n")
@@ -275,10 +248,8 @@ def main(yes: bool, git_base_dir: str, dry_run: bool, verbose: bool):
                                         f"Running release-it patch --ci to make release for {repo_name} branch {branch}"
                                     )
 
-                                subprocess.run(
+                                run_command(
                                     shlex.split("release-it patch --ci"),
-                                    stdout=subprocess.PIPE,
-                                    stderr=subprocess.PIPE,
                                 )
                                 table.add_row(
                                     repo_name,

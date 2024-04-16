@@ -62,7 +62,7 @@ def generate_renovate_json():
             _json = json.load(fd)
 
         match_package_patterns_idx = None
-        for idx, match_package_pattern in enumerate(_json.get("packageRules")):
+        for idx, match_package_pattern in enumerate(_json.get("packageRules", [])):
             if [*match_package_pattern][0] == "matchPackagePatterns":
                 match_package_patterns_idx = idx
                 break

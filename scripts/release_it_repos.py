@@ -2,7 +2,7 @@
 
 import logging
 from typing import Dict, List
-from rich.progress import Progress
+from rich.progress import Progress, TaskID
 import os
 import re
 import shlex
@@ -19,7 +19,7 @@ from pyhelper_utils.shell import run_command
 
 def base_table() -> Table:
     table = Table(
-        title="Cluster Configuration Report",
+        title="Releases status report",
         show_lines=True,
         box=box.ROUNDED,
         expand=False,
@@ -125,6 +125,48 @@ def get_repositories(progress: Progress, verbose: bool, repositories: Dict[str, 
     return final_repositories
 
 
+def process_config(config_file: str, progress: Progress, verbose: bool) -> Dict:
+    config_data: Dict = {}
+    if config_file:
+        if os.path.isfile(config_file):
+            if verbose:
+                progress.console.print(f"Found config file: {config_file}")
+
+            config_data = parse_config(config_file)
+            if not config_data:
+                progress.console.print(f"Failed to parse config file: {config_file}")
+                exit(1)
+
+            if verbose:
+                progress.console.print(f"Config data: {config_data}")
+
+        elif verbose:
+            progress.console.print(f"Config file {config_file} does not exist")
+            exit(1)
+    return config_data
+
+
+def skip_repository(
+    config_data: Dict,
+    repo_name: str,
+    progress: Progress,
+    verbose: bool,
+    task: TaskID,
+    task_progress: int,
+    repo_task: TaskID,
+) -> bool:
+    include_repositories = config_data.get("include_repositories")
+    if include_repositories and repo_name not in include_repositories:
+        if verbose:
+            progress.console.print(f"{repo_name} is not in include_repositories, skipping")
+
+        progress.update(repo_task, advance=task_progress, refresh=True)
+        progress.update(task, advance=task_progress, refresh=True)
+        return True
+
+    return False
+
+
 @click.command("installer")
 @click.option(
     "-y",
@@ -149,24 +191,7 @@ def main(yes: bool, git_base_dir: str, config_file: str, dry_run: bool, verbose:
     table = base_table()
 
     with Progress() as progress:
-        config_data = {}
-        if config_file:
-            if os.path.isfile(config_file):
-                if verbose:
-                    progress.console.print(f"Found config file: {config_file}")
-
-                config_data = parse_config(config_file)
-                if not config_data:
-                    progress.console.print(f"Failed to parse config file: {config_file}")
-                    exit(1)
-
-                if verbose:
-                    progress.console.print(f"Config data: {config_data}")
-
-            elif verbose:
-                progress.console.print(f"Config file {config_file} does not exist")
-                exit(1)
-
+        config_data = process_config(config_file=config_file, progress=progress, verbose=verbose)
         _repositories = config_data.get(
             "repositories", "https://raw.githubusercontent.com/CSPI-QE/MSI/main/REPOS_INVENTORY.md"
         )
@@ -175,7 +200,6 @@ def main(yes: bool, git_base_dir: str, config_file: str, dry_run: bool, verbose:
         task = progress.add_task("[green]Checking for releases ", total=len(repositories))
         git_base_dir = config_data.get("git_base_dir", git_base_dir)
         repositories_mapping = config_data.get("repositories-mapping", {})
-        include_repositories = config_data.get("include-repositories", [])
 
         if not os.path.isdir(git_base_dir):
             progress.console.print(f"Git base directory {git_base_dir} does not exist")
@@ -186,12 +210,15 @@ def main(yes: bool, git_base_dir: str, config_file: str, dry_run: bool, verbose:
             if verbose:
                 progress.console.print(f"Working on {repo_name} with branches {branches}")
 
-            if include_repositories and repo_name not in include_repositories:
-                if verbose:
-                    progress.console.print(f"{repo_name} is not in include_repositories, skipping")
-
-                progress.update(repo_task, advance=task_progress, refresh=True)
-                progress.update(task, advance=task_progress, refresh=True)
+            if skip_repository(
+                config_data=config_data,
+                repo_name=repo_name,
+                progress=progress,
+                verbose=verbose,
+                task=task,
+                task_progress=task_progress,
+                repo_task=repo_task,
+            ):
                 continue
 
             repo_name = repositories_mapping.get(repo_name, repo_name)
@@ -221,8 +248,9 @@ def main(yes: bool, git_base_dir: str, config_file: str, dry_run: bool, verbose:
 
                             progress.update(branch_task, advance=task_progress, refresh=True)
                             progress.update(repo_task, advance=task_progress, refresh=True)
-                            progress.update(task, advance=task_progress, refresh=True)
+                            # progress.update(task, advance=task_progress, refresh=True)
                             continue
+
                         if verbose:
                             progress.console.print(
                                 f"Running release-it --release-version to get next release version {repo_name} branch {branch}"
@@ -246,7 +274,7 @@ def main(yes: bool, git_base_dir: str, config_file: str, dry_run: bool, verbose:
                             )
                             progress.update(branch_task, advance=task_progress, refresh=True)
                             progress.update(repo_task, advance=task_progress, refresh=True)
-                            progress.update(task, advance=task_progress, refresh=True)
+                            # progress.update(task, advance=task_progress, refresh=True)
                             continue
 
                         if yes:
@@ -275,7 +303,7 @@ def main(yes: bool, git_base_dir: str, config_file: str, dry_run: bool, verbose:
                                 )
                                 progress.update(branch_task, advance=task_progress, refresh=True)
                                 progress.update(repo_task, advance=task_progress, refresh=True)
-                                progress.update(task, advance=task_progress, refresh=True)
+                                # progress.update(task, advance=task_progress, refresh=True)
 
                             except Exception as exp:
                                 progress.console.print(
@@ -291,7 +319,7 @@ def main(yes: bool, git_base_dir: str, config_file: str, dry_run: bool, verbose:
                                 )
                                 progress.update(branch_task, advance=task_progress, refresh=True)
                                 progress.update(repo_task, advance=task_progress, refresh=True)
-                                progress.update(task, advance=task_progress, refresh=True)
+                                # progress.update(task, advance=task_progress, refresh=True)
 
                         else:
                             table.add_row(
@@ -304,11 +332,11 @@ def main(yes: bool, git_base_dir: str, config_file: str, dry_run: bool, verbose:
                             )
                             progress.update(branch_task, advance=task_progress, refresh=True)
                             progress.update(repo_task, advance=task_progress, refresh=True)
-                            progress.update(task, advance=task_progress, refresh=True)
+                            # progress.update(task, advance=task_progress, refresh=True)
                             continue
 
                 progress.update(
-                    repo_task,
+                    task,
                     advance=task_progress,
                     refresh=True,
                 )
@@ -318,7 +346,7 @@ def main(yes: bool, git_base_dir: str, config_file: str, dry_run: bool, verbose:
     if table.rows:
         rich.print(table)
     else:
-        rich.print("/n[yellow][bold]No new content found for any repositories[not bold][not yellow]")
+        rich.print("[yellow][bold]No new content found for any repositories[not bold][not yellow]")
 
 
 if __name__ == "__main__":

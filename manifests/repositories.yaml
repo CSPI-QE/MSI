@@ -4,135 +4,144 @@ aws-cost-reporter:
   container: false
   container_url: ""
   github_url: https://github.com/RedHatQE/aws-cost-reporter
+  name: aws-cost-reporter
   release: false
   release_url: ""
-
 ci-jobs-trigger:
   branches:
     - main
   container: true
   container_url: https://quay.io/repository/redhat_msi/ci-jobs-trigger
   github_url: https://github.com/RedHatQE/ci-jobs-trigger
+  name: ci-jobs-trigger
   release: true
   release_url: https://github.com/RedHatQE/ci-jobs-trigger/releases
-
 cloud-tools:
   branches:
     - main
   container: false
   container_url: ""
   github_url: https://github.com/RedHatQE/cloud-tools
+  name: cloud-tools
   release: true
   release_url: https://pypi.org/project/redhat-qe-cloud-tools/
-
 fedora-zsh:
   branches:
     - main
   container: false
   container_url: ""
   github_url: https://github.com/RedHatQE/fedora-zsh
+  name: fedora-zsh
   release: false
   release_url: ""
-
 firewatch:
   branches:
     - main
   container: false
   container_url: ""
   github_url: https://github.com/RedHatQE/firewatch
+  name: firewatch
   release: false
   release_url: ""
-
 flake8-plugins:
   branches:
     - main
   container: false
   container_url: ""
   github_url: https://github.com/RedHatQE/flake8-plugins
+  name: flake8-plugins
   release: false
   release_url: ""
-
 github-webhook-server:
   branches:
     - main
   container: false
   container_url: ""
   github_url: https://github.com/myk-org/github-webhook-server
+  name: github-webhook-server
   release: true
   release_url: https://pypi.org/project/github-webhook-server/
-
 managed-services-integration-tests:
   branches:
     - main
   container: true
   container_url: https://quay.io/repository/redhat_msi/managed-services-integration-tests
   github_url: https://github.com/RedHatQE/managed-services-integration-tests
+  name: managed-services-integration-tests
   release: false
   release_url: ""
-
 ocp-addons-operators-cli:
   branches:
     - main
   container: true
   container_url: https://quay.io/repository/redhat_msi/ocp-addons-operators-cli
   github_url: https://github.com/RedHatQE/ocp-addons-operators-cli
+  name: ocp-addons-operators-cli
   release: true
   release_url: https://github.com/RedHatQE/ocp-addons-operators-cli/releases
-
 openshift-ci-trigger:
   branches:
     - main
   container: true
   container_url: https://quay.io/repository/redhat_msi/openshift-ci-trigger
   github_url: https://github.com/RedHatQE/openshift-ci-trigger
+  name: openshift-ci-trigger
   release: true
   release_url: https://github.com/RedHatQE/openshift-ci-trigger/releases
-
 openshift-cli-installer:
   branches:
     - main
   container: true
   container_url: https://quay.io/repository/redhat_msi/openshift-cli-installer
   github_url: https://github.com/RedHatQE/openshift-cli-installer
+  name: openshift-cli-installer
   release: true
   release_url: https://pypi.org/project/openshift-cli-installer/
-
 openshift-cluster-management-python-client:
   branches:
     - main
   container: false
   container_url: ""
   github_url: https://github.com/RedHatQE/openshift-cluster-management-python-client
+  name: openshift-cluster-management-python-client
   release: true
-  release_url: "https://pypi.org/project/openshift-cluster-management-python-client/"
-
+  release_url: <[openshift-cluster-management-python-client](https://pypi.org/project/openshift-cluster-management-python-client/)>
 openshift-cluster-management-python-wrapper:
   branches:
     - main
   container: false
   container_url: ""
   github_url: https://github.com/RedHatQE/openshift-cluster-management-python-wrapper
+  name: openshift-cluster-management-python-wrapper
   release: true
   release_url: https://pypi.org/project/openshift-cluster-management-python-wrapper/
-
+openshift-day2-configuration:
+  branches:
+    - main
+  container: false
+  container_url: ""
+  github_url: https://github.com/RedHatQE/openshift-day2-configuration
+  name: openshift-day2-configuration
+  release: true
+  release_url: https://pypi.org/project/openshift-day2-configuration/
 openshift-day2-configurator:
   branches:
     - main
   container: false
   container_url: ""
   github_url: https://github.com/RedHatQE/openshift-day2-configurator
+  name: openshift-day2-configurator
   release: true
   release_url: https://pypi.org/project/openshift-day2-configurator/
-
 openshift-python-utilities:
   branches:
     - main
   container: false
   container_url: ""
   github_url: https://github.com/RedHatQE/openshift-python-utilities
+  name: openshift-python-utilities
   release: true
   release_url: https://pypi.org/project/openshift-python-utilities/
-
 openshift-python-wrapper:
   branches:
     - main
@@ -141,86 +150,87 @@ openshift-python-wrapper:
   container: false
   container_url: ""
   github_url: https://github.com/RedHatQE/openshift-python-wrapper
+  name: openshift-python-wrapper
   release: true
   release_url: https://pypi.org/project/openshift-python-wrapper/
-
 openshift-python-wrapper-data-collector:
   branches:
     - main
   container: false
   container_url: ""
   github_url: https://github.com/RedHatQE/openshift-python-wrapper-data-collector
+  name: openshift-python-wrapper-data-collector
   release: true
   release_url: https://pypi.org/project/openshift-python-wrapper-data-collector/
-
 pyhelper-utils:
   branches:
     - main
   container: false
   container_url: ""
   github_url: https://github.com/RedHatQE/pyhelper-utils
+  name: pyhelper-utils
   release: true
   release_url: https://pypi.org/project/pyhelper-utils/
-
 python-simple-logger:
   branches:
     - main
   container: false
   container_url: ""
   github_url: https://github.com/RedHatQE/python-simple-logger
+  name: python-simple-logger
   release: true
   release_url: https://pypi.org/project/python-simple-logger/
-
 python-utility-scripts:
   branches:
     - main
   container: false
   container_url: ""
   github_url: https://github.com/RedHatQE/python-utility-scripts
+  name: python-utility-scripts
   release: true
   release_url: https://pypi.org/project/python-utility-scripts/
-
 qe-metrics:
   branches:
     - main
   container: false
   container_url: ""
   github_url: https://github.com/RedHatQE/qe-metrics
+  name: qe-metrics
   release: false
   release_url: ""
-
 qe-tools-base-image:
   branches:
     - main
   container: true
   container_url: https://quay.io/repository/redhat_msi/qe-tools-base-image
   github_url: https://github.com/RedHatQE/qe-tools-base-image
+  name: qe-tools-base-image
   release: false
   release_url: ""
-
 rosa-python-client:
   branches:
     - main
   container: false
   container_url: ""
   github_url: https://github.com/RedHatQE/rosa-python-client
+  name: rosa-python-client
   release: true
   release_url: https://pypi.org/project/rosa-python-client/
-
 timeout-sampler:
   branches:
     - main
   container: false
   container_url: ""
   github_url: https://github.com/RedHatQE/timeout-sampler
+  name: timeout-sampler
   release: true
   release_url: https://pypi.org/project/timeout-sampler/
-
 vaultrun:
   branches:
     - main
   container: false
   container_url: ""
   github_url: https://github.com/RedHatQE/vaultrun
+  name: vaultrun
   release: true
   release_url: https://pypi.org/project/vaultrun/

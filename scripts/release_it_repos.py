@@ -104,10 +104,14 @@ def get_repositories(progress: Progress, verbose: bool, repositories: Dict[str, 
     if isinstance(repositories, str):
         repos = yaml.safe_load(requests.get(repositories).content.decode("utf-8"))
         for repo_name, data in repos.items():
+            if not data["release"]:
+                continue
+
             branches = data["branches"]
 
             if verbose:
                 progress.console.print(f"Found {repo_name} with branches {branches}")
+
             final_repositories[repo_name] = branches
 
     else:

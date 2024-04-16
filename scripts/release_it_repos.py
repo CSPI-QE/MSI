@@ -26,7 +26,6 @@ def base_table() -> Table:
     )
     table.add_column("Repository", style="cyan", no_wrap=True)
     table.add_column("Branch", style="magenta")
-    table.add_column("Status", style="green")
     table.add_column("Version", style="green")
     table.add_column("Changelog", style="green")
     table.add_column("Released", style="green")
@@ -266,7 +265,6 @@ def main(yes: bool, git_base_dir: str, config_file: str, dry_run: bool, verbose:
                             table.add_row(
                                 repo_name,
                                 branch,
-                                "Yes",
                                 next_release,
                                 changelog,
                                 "Dry Run",
@@ -295,7 +293,6 @@ def main(yes: bool, git_base_dir: str, config_file: str, dry_run: bool, verbose:
                                 table.add_row(
                                     repo_name,
                                     branch,
-                                    "Yes",
                                     next_release,
                                     changelog,
                                     "Yes",
@@ -311,7 +308,6 @@ def main(yes: bool, git_base_dir: str, config_file: str, dry_run: bool, verbose:
                                 table.add_row(
                                     repo_name,
                                     branch,
-                                    "Yes",
                                     next_release,
                                     changelog,
                                     "Failed",
@@ -324,7 +320,6 @@ def main(yes: bool, git_base_dir: str, config_file: str, dry_run: bool, verbose:
                             table.add_row(
                                 repo_name,
                                 branch,
-                                "Yes",
                                 next_release,
                                 changelog,
                                 "No",

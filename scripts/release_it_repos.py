@@ -4,7 +4,6 @@ import logging
 from typing import Dict, List
 from rich.progress import Progress, TaskID
 import os
-import re
 import shlex
 import click
 import requests
@@ -15,6 +14,7 @@ from rich import box
 from rich.table import Table
 from pyaml_env import parse_config
 from pyhelper_utils.shell import run_command
+import yaml
 
 
 def base_table() -> Table:
@@ -102,19 +102,14 @@ def get_repositories(progress: Progress, verbose: bool, repositories: Dict[str, 
     final_repositories = {}
 
     if isinstance(repositories, str):
-        repos = requests.get(repositories).content
-        for line in repos.decode("utf-8").splitlines():
-            if re.findall(r"\[.*]\(.*\)", line):
-                repo_data = [section.strip() for section in line.split("|") if section]
-                if len(repo_data) < 4:
-                    continue
+        repos = yaml.safe_load(requests.get(repositories).content.decode("utf-8"))
+        for repo_name, data in repos.items():
+            branches = data["branches"]
 
-                if ":heavy_check_mark:" in repo_data[2]:
-                    repo_name = re.findall(r"\[.*]", repo_data[0])[0].strip("[").rstrip("]")
-                    branches = [br.strip("`") for br in repo_data[3].split()]
-                    if verbose:
-                        progress.console.print(f"Found {repo_name} with branches {branches}")
-                    final_repositories[repo_name] = branches
+            if verbose:
+                progress.console.print(f"Found {repo_name} with branches {branches}")
+            final_repositories[repo_name] = branches
+
     else:
         for repo_url, branches in repositories.items():
             repo = repo_url.split("/")[-1]
@@ -193,7 +188,7 @@ def main(yes: bool, git_base_dir: str, config_file: str, dry_run: bool, verbose:
     with Progress() as progress:
         config_data = process_config(config_file=config_file, progress=progress, verbose=verbose)
         _repositories = config_data.get(
-            "repositories", "https://raw.githubusercontent.com/CSPI-QE/MSI/main/REPOS_INVENTORY.md"
+            "repositories", "https://raw.githubusercontent.com/CSPI-QE/MSI/main/manifests/repositories.yaml"
         )
         repositories = get_repositories(progress=progress, verbose=verbose, repositories=_repositories)
         task_progress = 1

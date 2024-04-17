@@ -83,3 +83,14 @@ Must be run from the root of the repository
 ```bash
 poetry run poetry-update-repo
 ```
+
+## generate-inventory-markdown
+
+Generate REPOS_INVENTORY.md file with the content from manifests/repositories.yaml file
+Must be run from the root of the repository
+
+### Usage
+
+```bash
+generate-inventory-markdown
+```

@@ -20,7 +20,6 @@ Template for a new GitHub python repository: [python-template-repository](https:
 | [openshift-cli-installer](https://github.com/RedHatQE/openshift-cli-installer) | [:heavy_check_mark:](https://quay.io/repository/redhat_msi/openshift-cli-installer) | [:heavy_check_mark:](https://pypi.org/project/openshift-cli-installer/) | `main` |
 | [openshift-cluster-management-python-client](https://github.com/RedHatQE/openshift-cluster-management-python-client) | :x: | [:heavy_check_mark:](<[openshift-cluster-management-python-client](https://pypi.org/project/openshift-cluster-management-python-client/)>) | `main` |
 | [openshift-cluster-management-python-wrapper](https://github.com/RedHatQE/openshift-cluster-management-python-wrapper) | :x: | [:heavy_check_mark:](https://pypi.org/project/openshift-cluster-management-python-wrapper/) | `main` |
-| [openshift-day2-configuration](https://github.com/RedHatQE/openshift-day2-configuration) | :x: | [:heavy_check_mark:](https://pypi.org/project/openshift-day2-configuration/) | `main` |
 | [openshift-day2-configurator](https://github.com/RedHatQE/openshift-day2-configurator) | :x: | [:heavy_check_mark:](https://pypi.org/project/openshift-day2-configurator/) | `main` |
 | [openshift-python-utilities](https://github.com/RedHatQE/openshift-python-utilities) | :x: | [:heavy_check_mark:](https://pypi.org/project/openshift-python-utilities/) | `main` |
 | [openshift-python-wrapper](https://github.com/RedHatQE/openshift-python-wrapper) | :x: | [:heavy_check_mark:](https://pypi.org/project/openshift-python-wrapper/) | `main` `v4.15` `v4.14` |
@@ -28,7 +27,7 @@ Template for a new GitHub python repository: [python-template-repository](https:
 | [pyhelper-utils](https://github.com/RedHatQE/pyhelper-utils) | :x: | [:heavy_check_mark:](https://pypi.org/project/pyhelper-utils/) | `main` |
 | [python-simple-logger](https://github.com/RedHatQE/python-simple-logger) | :x: | [:heavy_check_mark:](https://pypi.org/project/python-simple-logger/) | `main` |
 | [python-utility-scripts](https://github.com/RedHatQE/python-utility-scripts) | :x: | [:heavy_check_mark:](https://pypi.org/project/python-utility-scripts/) | `main` |
-| [qe-metrics](https://github.com/RedHatQE/qe-metrics) | :x: | :x: | `main` |
+| [qe-metrics](https://github.com/RedHatQE/qe-metrics) | [:heavy_check_mark:]( quay.io/redhatqe/qe-metrics) | :x: | `main` |
 | [qe-tools-base-image](https://github.com/RedHatQE/qe-tools-base-image) | [:heavy_check_mark:](https://quay.io/repository/redhat_msi/qe-tools-base-image) | :x: | `main` |
 | [rosa-python-client](https://github.com/RedHatQE/rosa-python-client) | :x: | [:heavy_check_mark:](https://pypi.org/project/rosa-python-client/) | `main` |
 | [timeout-sampler](https://github.com/RedHatQE/timeout-sampler) | :x: | [:heavy_check_mark:](https://pypi.org/project/timeout-sampler/) | `main` |

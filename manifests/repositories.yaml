@@ -183,8 +183,8 @@ python-utility-scripts:
 qe-metrics:
   branches:
     - main
-  container: false
-  container_url: ""
+  container: true
+  container_url: " quay.io/redhatqe/qe-metrics"
   github_url: https://github.com/RedHatQE/qe-metrics
   release: false
   release_url: ""

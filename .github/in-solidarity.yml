@@ -1,6 +1,6 @@
 rules:
   master:
-    level: failure  # default rules are set to warning
+    level: failure # default rules are set to warning
   slave:
     level: failure
   blacklist:
@@ -8,7 +8,6 @@ rules:
   whitelist:
     level: failure
 ignore:
- - ".github/in-solidarity.yml"  # default
- - ".github/workflows/*.yml"
- - "**/*.yml"
- - "app/manifests/install-config-template.j2"
+  - ".github/in-solidarity.yml" # default
+  - ".github/workflows/*.yml"
+  - "**/*.yml"

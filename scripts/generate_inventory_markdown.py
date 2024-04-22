@@ -3,7 +3,7 @@ import click
 
 
 @click.command("generate-inventory-markdown")
-def generate_inverntory_markfown():
+def generate_inverntory_markfown() -> None:
     markdown = """
 # Repository inventory
 

@@ -1,0 +1,19 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "packageRules": [
+    {
+      "matchPackagePatterns": [
+        "pyyaml",
+        "requests",
+        "click",
+        "rich",
+        "python-simple-logger",
+        "pyaml-env",
+        "pyhelper-utils",
+        "ipython",
+        "ipdb"
+      ],
+      "groupName": "poetry-deps"
+    }
+  ]
+}

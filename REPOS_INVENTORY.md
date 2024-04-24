@@ -27,7 +27,7 @@ Template for a new GitHub python repository: [python-template-repository](https:
 | [pyhelper-utils](https://github.com/RedHatQE/pyhelper-utils) | :x: | [:heavy_check_mark:](https://pypi.org/project/pyhelper-utils/) | `main` |
 | [python-simple-logger](https://github.com/RedHatQE/python-simple-logger) | :x: | [:heavy_check_mark:](https://pypi.org/project/python-simple-logger/) | `main` |
 | [python-utility-scripts](https://github.com/RedHatQE/python-utility-scripts) | :x: | [:heavy_check_mark:](https://pypi.org/project/python-utility-scripts/) | `main` |
-| [qe-metrics](https://github.com/RedHatQE/qe-metrics) | [:heavy_check_mark:]( quay.io/redhatqe/qe-metrics) | :x: | `main` |
+| [qe-metrics](https://github.com/RedHatQE/qe-metrics) | [:heavy_check_mark:]( quay.io/redhatqe/qe-metrics) | [:heavy_check_mark:](https://github.com/RedHatQE/qe-metrics/releases) | `main` |
 | [qe-tools-base-image](https://github.com/RedHatQE/qe-tools-base-image) | [:heavy_check_mark:](https://quay.io/repository/redhat_msi/qe-tools-base-image) | :x: | `main` |
 | [rosa-python-client](https://github.com/RedHatQE/rosa-python-client) | :x: | [:heavy_check_mark:](https://pypi.org/project/rosa-python-client/) | `main` |
 | [timeout-sampler](https://github.com/RedHatQE/timeout-sampler) | :x: | [:heavy_check_mark:](https://pypi.org/project/timeout-sampler/) | `main` |

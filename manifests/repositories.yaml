@@ -186,8 +186,8 @@ qe-metrics:
   container: true
   container_url: " quay.io/redhatqe/qe-metrics"
   github_url: https://github.com/RedHatQE/qe-metrics
-  release: false
-  release_url: ""
+  release: true
+  release_url: "https://github.com/RedHatQE/qe-metrics/releases"
 
 qe-tools-base-image:
   branches:

@@ -434,15 +434,16 @@ def main(yes: bool, git_base_dir: str, config_file: str, dry_run: bool, verbose:
 
     if _table.rows:
         rich.print(table)
-        slack_msg = ""
-        for repo_name, data in _slack_msg_dict.items():
-            for branch, changelog in data.items():
-                for next_release, changelog in changelog.items():
-                    changelog_str = "\n".join([f"  {cl}" for cl in changelog.splitlines()])
-                    slack_msg += f"{repo_name}\n  {branch}\n    {next_release}    {changelog_str}\n\n"
 
-        if slack_msg and not dry_run:
+        if not dry_run:
             if slack_webhook_url := config_data.get("slack-webhook-url", os.environ.get("SLACK_WEBHOOK_URL")):
+                slack_msg = ""
+                for repo_name, data in _slack_msg_dict.items():
+                    for branch, changelog in data.items():
+                        for next_release, changelog in changelog.items():
+                            changelog_str = "\n".join([f"  {cl}" for cl in changelog.splitlines()])
+                            slack_msg += f"{repo_name}\n  {branch}\n    {next_release}    {changelog_str}\n\n"
+
                 send_slack_message(message=slack_msg, webhook_url=slack_webhook_url)
 
     else:

@@ -643,12 +643,12 @@ windows-terminal = ["colorama (>=0.4.6)"]
 
 [[package]]
 name = "pyhelper-utils"
-version = "0.0.14"
+version = "0.0.15"
 description = "Collective utility functions for python projects"
 optional = false
 python-versions = "<4.0,>=3.8"
 files = [
-    {file = "pyhelper_utils-0.0.14.tar.gz", hash = "sha256:8d6ab75f3c23519d8337e70bcf9c8bdaedd36f3b48cf00c6a91255dc656432e5"},
+    {file = "pyhelper_utils-0.0.15.tar.gz", hash = "sha256:bea149ec231d323e98c77a8d5df308860ec06c1611ea965a815b2a694c0e51c7"},
 ]
 
 [package.dependencies]
@@ -899,4 +899,4 @@ files = [
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.11"
-content-hash = "bd1e89bbb29997211b49d96f1388590bbf4143b1382a91b41b6434dd8511a9eb"
+content-hash = "a47d87cba96072a7878daa7bb8a392ca1174e3c13ab8adfed27409738d714f80"

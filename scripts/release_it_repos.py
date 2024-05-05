@@ -436,7 +436,9 @@ def main(yes: bool, git_base_dir: str, config_file: str, dry_run: bool, verbose:
         rich.print(table)
 
         if not dry_run:
-            if slack_webhook_url := config_data.get("slack-webhook-url", os.environ.get("SLACK_WEBHOOK_URL")):
+            if slack_webhook_url := config_data.get(
+                "slack-webhook-url", os.environ.get("RELEASE_IT_SLACK_WEBHOOK_URL")
+            ):
                 slack_msg = ""
                 for repo_name, data in _slack_msg_dict.items():
                     for branch, changelog in data.items():

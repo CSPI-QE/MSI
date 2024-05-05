@@ -14,7 +14,7 @@ Template for a new GitHub python repository: [python-template-repository](https:
 | [firewatch](https://github.com/RedHatQE/firewatch) | :x: | :x: | `main` |
 | [flake8-plugins](https://github.com/RedHatQE/flake8-plugins) | :x: | :x: | `main` |
 | [github-webhook-server](https://github.com/myk-org/github-webhook-server) | :x: | [:heavy_check_mark:](https://pypi.org/project/github-webhook-server/) | `main` |
-| [hive-claim-flask-app](https://github.com/RedHatQE/hive-claim-flask-app) | [:heavy_check_mark:](https://github.com/RedHatQE/hive-claim-flask-app) | :x: | `main` |
+| [hive-claim-flask-app](https://github.com/RedHatQE/hive-claim-flask-app) | [:heavy_check_mark:](https://github.com/RedHatQE/hive-claim-flask-app) | [:heavy_check_mark:]() | `main` |
 | [managed-services-integration-tests](https://github.com/RedHatQE/managed-services-integration-tests) | [:heavy_check_mark:](https://quay.io/repository/redhat_msi/managed-services-integration-tests) | :x: | `main` |
 | [ocp-addons-operators-cli](https://github.com/RedHatQE/ocp-addons-operators-cli) | [:heavy_check_mark:](https://quay.io/repository/redhat_msi/ocp-addons-operators-cli) | [:heavy_check_mark:](https://github.com/RedHatQE/ocp-addons-operators-cli/releases) | `main` |
 | [openshift-ci-trigger](https://github.com/RedHatQE/openshift-ci-trigger) | [:heavy_check_mark:](https://quay.io/repository/redhat_msi/openshift-ci-trigger) | [:heavy_check_mark:](https://github.com/RedHatQE/openshift-ci-trigger/releases) | `main` |

@@ -67,7 +67,7 @@ hive-claim-flask-app:
   container: true
   container_url: https://github.com/RedHatQE/hive-claim-flask-app
   github_url: https://github.com/RedHatQE/hive-claim-flask-app
-  release: false
+  release: true
   release_url: ""
 
 managed-services-integration-tests:

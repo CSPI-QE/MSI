@@ -1,10 +1,10 @@
 aws-cost-reporter:
   branches:
     - main
-  container: false
-  container_url: ""
+  container: true
+  container_url: "https://quay.io/repository/redhat_msi/aws-cost-reporter"
   github_url: https://github.com/RedHatQE/aws-cost-reporter
-  release: false
+  release: true
   release_url: ""
 
 ci-jobs-trigger:
@@ -55,8 +55,8 @@ flake8-plugins:
 github-webhook-server:
   branches:
     - main
-  container: false
-  container_url: ""
+  container: true
+  container_url: "https://quay.io/repository/myakove/github-webhook-server"
   github_url: https://github.com/myk-org/github-webhook-server
   release: true
   release_url: https://pypi.org/project/github-webhook-server/
@@ -204,7 +204,7 @@ qe-tools-base-image:
   container: true
   container_url: https://quay.io/repository/redhat_msi/qe-tools-base-image
   github_url: https://github.com/RedHatQE/qe-tools-base-image
-  release: false
+  release: true
   release_url: ""
 
 rosa-python-client:

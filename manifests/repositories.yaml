@@ -88,15 +88,6 @@ ocp-addons-operators-cli:
   release: true
   release_url: https://github.com/RedHatQE/ocp-addons-operators-cli/releases
 
-openshift-ci-trigger:
-  branches:
-    - main
-  container: true
-  container_url: https://quay.io/repository/redhat_msi/openshift-ci-trigger
-  github_url: https://github.com/RedHatQE/openshift-ci-trigger
-  release: true
-  release_url: https://github.com/RedHatQE/openshift-ci-trigger/releases
-
 openshift-cli-installer:
   branches:
     - main

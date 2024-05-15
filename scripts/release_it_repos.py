@@ -80,7 +80,7 @@ def change_git_branch(repo: str, branch: str, progress: Progress, verbose: bool)
         if verbose:
             progress.console.print(f"{repo}: popping stash back for {branch}")
 
-        run_command(shlex.split("git stash pop"), verify_stderr=False)
+        run_command(shlex.split("git stash pop"), verify_stderr=False, check=False)
 
 
 @contextmanager

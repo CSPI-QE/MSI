@@ -61,15 +61,6 @@ github-webhook-server:
   release: true
   release_url: https://pypi.org/project/github-webhook-server/
 
-hive-claim-flask-app:
-  branches:
-    - main
-  container: true
-  container_url: https://github.com/RedHatQE/hive-claim-flask-app
-  github_url: https://github.com/RedHatQE/hive-claim-flask-app
-  release: true
-  release_url: ""
-
 hive-claim-manager:
   branches:
     - main

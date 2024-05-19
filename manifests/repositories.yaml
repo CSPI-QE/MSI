@@ -70,21 +70,12 @@ hive-claim-flask-app:
   release: true
   release_url: ""
 
-hive-claim-manager-server:
+hive-claim-manager:
   branches:
     - main
   container: true
-  container_url: https://github.com/RedHatQE/hive-claim-manager-server
-  github_url: https://github.com/RedHatQE/hive-claim-manager-server
-  release: true
-  release_url: ""
-
-hive-claim-manager-client:
-  branches:
-    - main
-  container: true
-  container_url: https://github.com/RedHatQE/hive-claim-manager-client
-  github_url: https://github.com/RedHatQE/hive-claim-manager-client
+  container_url: https://github.com/RedHatQE/hive-claim-manager
+  github_url: https://github.com/RedHatQE/hive-claim-manager
   release: true
   release_url: ""
 

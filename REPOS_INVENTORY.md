@@ -15,8 +15,7 @@ Template for a new GitHub python repository: [python-template-repository](https:
 | [flake8-plugins](https://github.com/RedHatQE/flake8-plugins) | :x: | :x: | `main` |
 | [github-webhook-server](https://github.com/myk-org/github-webhook-server) | [:heavy_check_mark:](https://quay.io/repository/myakove/github-webhook-server) | [:heavy_check_mark:](https://pypi.org/project/github-webhook-server/) | `main` |
 | [hive-claim-flask-app](https://github.com/RedHatQE/hive-claim-flask-app) | [:heavy_check_mark:](https://github.com/RedHatQE/hive-claim-flask-app) | [:heavy_check_mark:]() | `main` |
-| [hive-claim-manager-server](https://github.com/RedHatQE/hive-claim-manager-server) | [:heavy_check_mark:](https://github.com/RedHatQE/hive-claim-manager-server) | [:heavy_check_mark:]() | `main` |
-| [hive-claim-manager-client](https://github.com/RedHatQE/hive-claim-manager-client) | [:heavy_check_mark:](https://github.com/RedHatQE/hive-claim-manager-client) | [:heavy_check_mark:]() | `main` |
+| [hive-claim-manager](https://github.com/RedHatQE/hive-claim-manager) | [:heavy_check_mark:](https://github.com/RedHatQE/hive-claim-manager) | [:heavy_check_mark:]() | `main` |
 | [managed-services-integration-tests](https://github.com/RedHatQE/managed-services-integration-tests) | [:heavy_check_mark:](https://quay.io/repository/redhat_msi/managed-services-integration-tests) | :x: | `main` |
 | [ocp-addons-operators-cli](https://github.com/RedHatQE/ocp-addons-operators-cli) | [:heavy_check_mark:](https://quay.io/repository/redhat_msi/ocp-addons-operators-cli) | [:heavy_check_mark:](https://github.com/RedHatQE/ocp-addons-operators-cli/releases) | `main` |
 | [openshift-cli-installer](https://github.com/RedHatQE/openshift-cli-installer) | [:heavy_check_mark:](https://quay.io/repository/redhat_msi/openshift-cli-installer) | [:heavy_check_mark:](https://pypi.org/project/openshift-cli-installer/) | `main` |

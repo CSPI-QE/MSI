@@ -70,15 +70,6 @@ hive-claim-manager:
   release: true
   release_url: ""
 
-managed-services-integration-tests:
-  branches:
-    - main
-  container: true
-  container_url: https://quay.io/repository/redhat_msi/managed-services-integration-tests
-  github_url: https://github.com/RedHatQE/managed-services-integration-tests
-  release: false
-  release_url: ""
-
 ocp-addons-operators-cli:
   branches:
     - main

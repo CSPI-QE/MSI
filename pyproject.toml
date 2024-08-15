@@ -31,7 +31,7 @@ click = "^8.1.7"
 rich = "^13.7.1"
 python-simple-logger = "^1.0.19"
 pyaml-env = "^1.2.1"
-pyhelper-utils = "^0.0.34"
+pyhelper-utils = "^0.0.35"
 
 
 [tool.poetry.group.dev.dependencies]

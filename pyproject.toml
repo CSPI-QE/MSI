@@ -29,9 +29,9 @@ pyyaml = "^6.0.1"
 requests = "^2.31.0"
 click = "^8.1.7"
 rich = "^13.7.1"
-python-simple-logger = "^1.0.19"
+python-simple-logger = "^2.0.0"
 pyaml-env = "^1.2.1"
-pyhelper-utils = "^0.0.44"
+pyhelper-utils = "^1.0.0"
 
 
 [tool.poetry.group.dev.dependencies]

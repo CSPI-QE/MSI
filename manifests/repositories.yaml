@@ -127,9 +127,9 @@ openshift-python-utilities:
 openshift-python-wrapper:
   branches:
     - main
+    - v4.17
     - v4.16
     - v4.15
-    - v4.14
   container: false
   container_url: ""
   github_url: https://github.com/RedHatQE/openshift-python-wrapper

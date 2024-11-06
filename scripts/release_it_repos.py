@@ -407,7 +407,8 @@ def main(yes: bool, git_base_dir: str, config_file: str, dry_run: bool, verbose:
 
     slack_msg_dict: Dict = {}
     _repositories = config_data.get(
-        "repositories", "https://raw.githubusercontent.com/CSPI-QE/MSI/main/manifests/repositories.yaml"
+        "repositories",
+        "https://raw.githubusercontent.com/myk-org/repositories-inventory/refs/heads/main/REPOS_INVENTORY.md",
     )
     repositories = get_repositories(progress=progress, verbose=verbose, repositories=_repositories)
 
